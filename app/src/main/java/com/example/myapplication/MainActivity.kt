@@ -46,6 +46,6 @@ fun MessageCard(msg: Message) {
 @Composable
 fun PreviewMessageCard() {
     MessageCard(
-        msg = Message("Lexi", "Heyy")
+        msg = Message("Iglobruh", "Heyy")
     )
 }
