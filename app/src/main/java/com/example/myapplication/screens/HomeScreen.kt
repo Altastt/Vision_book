@@ -27,7 +27,6 @@ import kotlin.random.Random
 
 
 
-@Preview
 @Composable
 fun HomeScreen() {
     LazyVerticalStaggeredGrid(
@@ -86,6 +85,7 @@ data class TestDataItem(
     var title: String,
     var url: String
 )
+
 object TestData{
     val imagesList = listOf(
         "https://i.pinimg.com/564x/59/a5/34/59a5344b6dd9eb7089d78e7eefeee9d8.jpg",

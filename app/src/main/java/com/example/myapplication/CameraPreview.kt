@@ -1,3 +1,8 @@
+import android.Manifest
+import android.content.pm.PackageManager
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -9,6 +14,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.runtime.LaunchedEffect
+import androidx.core.content.ContextCompat
+import coil.memory.MemoryCache
+import com.example.myapplication.MainScreen
+import java.util.concurrent.ExecutionException
 
 
 @Composable
@@ -23,14 +32,49 @@ fun CameraPreview(
     enableTorch: Boolean = false,
     focusOnTap: Boolean = false
 ) {
+    var isCameraPermissionGranted by remember { mutableStateOf(false) }
+
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Log.d("CameraPreview", "CAMERA PERMISSION GRANTED")
+            isCameraPermissionGranted = true
+        } else {
+            Log.d("CameraPreview", "CAMERA PERMISSION DENIED")
+
+        }
+    }
+
+    LaunchedEffect(context) {
+        when (PackageManager.PERMISSION_GRANTED) {
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.CAMERA
+            ) -> {
+                Log.d("CameraPreview", "Camera permission already granted")
+                isCameraPermissionGranted = true
+            }
+            else -> {
+                launcher.launch(Manifest.permission.CAMERA)
+            }
+        }
+    }
     val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
 
+
     val cameraProvider by produceState<ProcessCameraProvider?>(initialValue = null) {
-        value = cameraProviderFuture.get()
+        value = try {
+            cameraProviderFuture.get()
+        } catch (e: ExecutionException) {
+            // Обработка ошибки, если не удалось получить объект ProcessCameraProvider
+            null
+        }
     }
+
 
     val camera = remember(cameraProvider) {
         cameraProvider?.let {
@@ -46,7 +90,7 @@ fun CameraPreview(
     LaunchedEffect(camera, enableTorch) {
         camera?.let {
             if (it.cameraInfo.hasFlashUnit()) {
-                    it.cameraControl.enableTorch(enableTorch)
+                it.cameraControl.enableTorch(enableTorch)
             }
         }
     }

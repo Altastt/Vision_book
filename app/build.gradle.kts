@@ -61,6 +61,7 @@ dependencies {
     implementation("androidx.camera:camera-view:1.3.1")
     implementation("androidx.camera:camera-lifecycle:1.3.1")
     implementation ("androidx.camera:camera-camera2:1.3.1")
+    implementation("androidx.test:runner:1.5.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -76,8 +77,10 @@ dependencies {
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.6")
-
+    // Threads
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+    implementation ("com.google.accompanist:accompanist-permissions:0.23.0")
 
 }
