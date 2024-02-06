@@ -1,12 +1,18 @@
 import android.Manifest
 import android.content.pm.PackageManager
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -14,9 +20,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import coil.memory.MemoryCache
-import com.example.myapplication.MainScreen
+import com.example.myapplication.R
+import com.example.myapplication.ui.theme.LightGreyText
+import com.example.myapplication.ui.theme.Orange
+import java.io.File
 import java.util.concurrent.ExecutionException
 
 
@@ -33,6 +44,7 @@ fun CameraPreview(
     focusOnTap: Boolean = false
 ) {
     var isCameraPermissionGranted by remember { mutableStateOf(false) }
+    var isCapturingImage by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -45,7 +57,6 @@ fun CameraPreview(
             isCameraPermissionGranted = true
         } else {
             Log.d("CameraPreview", "CAMERA PERMISSION DENIED")
-
         }
     }
 
@@ -63,8 +74,8 @@ fun CameraPreview(
             }
         }
     }
-    val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
 
+    val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
 
     val cameraProvider by produceState<ProcessCameraProvider?>(initialValue = null) {
         value = try {
@@ -74,7 +85,6 @@ fun CameraPreview(
             null
         }
     }
-
 
     val camera = remember(cameraProvider) {
         cameraProvider?.let {
@@ -95,30 +105,62 @@ fun CameraPreview(
         }
     }
 
+    Column(modifier = modifier.fillMaxWidth().fillMaxHeight(0.8f), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
+        AndroidView(
+            modifier = modifier
+                .weight(1f)
+                .pointerInput(camera, focusOnTap) {
+                    if (!focusOnTap) return@pointerInput
 
-    AndroidView(
-        modifier = modifier.pointerInput(camera, focusOnTap) {
-            if (!focusOnTap) return@pointerInput
+                    detectTapGestures {
+                        val meteringPointFactory = SurfaceOrientedMeteringPointFactory(
+                            size.width.toFloat(),
+                            size.height.toFloat()
+                        )
+                        val meteringAction = FocusMeteringAction.Builder(
+                            meteringPointFactory.createPoint(it.x, it.y),
+                            FocusMeteringAction.FLAG_AF
+                        ).disableAutoCancel().build()
 
-            detectTapGestures {
-                val meteringPointFactory = SurfaceOrientedMeteringPointFactory(
-                    size.width.toFloat(),
-                    size.height.toFloat()
-                )
-                val meteringAction = FocusMeteringAction.Builder(
-                    meteringPointFactory.createPoint(it.x, it.y),
-                    FocusMeteringAction.FLAG_AF
-                ).disableAutoCancel().build()
-
-                camera?.cameraControl?.startFocusAndMetering(meteringAction)
+                        camera?.cameraControl?.startFocusAndMetering(meteringAction)
+                    }
+                },
+            factory = { _ ->
+                PreviewView(context).also {
+                    it.scaleType = scaleType
+                    it.implementationMode = implementationMode
+                    preview.setSurfaceProvider(it.surfaceProvider)
+                }
             }
-        },
-        factory = { _ ->
-            PreviewView(context).also {
-                it.scaleType = scaleType
-                it.implementationMode = implementationMode
-                preview.setSurfaceProvider(it.surfaceProvider)
-            }
+        )
+
+        Button(
+            onClick = {
+                isCapturingImage = true
+                val file = File(context.filesDir, "${System.currentTimeMillis()}.jpg")
+                val outputFileOptions = ImageCapture.OutputFileOptions.Builder(file).build()
+                imageCapture?.takePicture(outputFileOptions, ContextCompat.getMainExecutor(context), object : ImageCapture.OnImageSavedCallback {
+                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                        isCapturingImage = false
+                        Toast.makeText(context, "Image captured successfully", Toast.LENGTH_SHORT).show()
+                        Log.d("CameraPreview", "File path: ${file.path}")
+                    }
+
+                    override fun onError(exception: ImageCaptureException) {
+                        isCapturingImage = false
+                        Toast.makeText(context, "Error capturing image", Toast.LENGTH_SHORT).show()
+                        Log.e("CameraPreview", "Error capturing image: ${exception.message}", exception)
+                    }
+                })
+            },
+            modifier = Modifier
+                .padding(16.dp)
+                .size(80.dp),
+            shape = CircleShape,
+            colors = ButtonDefaults.buttonColors(contentColor = LightGreyText, containerColor = Orange)
+        ) {
+            Icon(painter = painterResource(R.drawable.circle),
+                contentDescription = "Take Picture")
         }
-    )
+    }
 }
