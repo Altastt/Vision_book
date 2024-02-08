@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen(rememberNavController())
+            MainScreen()
 
         }
     }
@@ -67,9 +67,7 @@ fun TopBar(navController: NavController, topAppBarState: MutableState<Boolean>) 
         exit = slideOutVertically(targetOffsetY = { -it }),
         content = {
             TopAppBar(
-                title = {
-                    // сделать запоминание состояния и менять текст для разных вкладок
-                    Text(
+                title = { Text(
                     "Начнем творить вместе с ИИ?",
                     modifier = Modifier.padding(start = 12.dp, end = 20.dp),
                     style = TextStyle(
@@ -138,31 +136,23 @@ fun BottomNavigationBar(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun MainScreen() {
+    val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val topBarState = rememberSaveable { (mutableStateOf(true)) }
     when (navBackStackEntry?.destination?.route) {
-        "home" -> {
-            rememberSaveable { (mutableStateOf(true)) }.value = true
-        }
-        "books" -> {
-            rememberSaveable { (mutableStateOf(true)) }.value = true
-        }
-        "camera" -> {
-            rememberSaveable { (mutableStateOf(true)) }.value = false
-        }
-        "bookmarks" -> {
-            rememberSaveable { (mutableStateOf(true)) }.value = false
-        }
-        "profile" -> {
-            rememberSaveable { (mutableStateOf(true)) }.value = false
-        }
+        "home" -> { topBarState.value = true }
+        "books" -> { topBarState.value = false }
+        "camera" -> { topBarState.value = false }
+        "bookmarks" -> { topBarState.value = false }
+        "profile" -> { topBarState.value = false }
     }
     Scaffold(
-        topBar = { TopBar(navController, rememberSaveable { (mutableStateOf(true)) }) },
+        topBar = { TopBar(navController, topBarState) },
         content = { padding ->
-                  Column(modifier = Modifier.padding(top = 26.dp)){
-                      Navigation(navController)
-                  }
+            Column(modifier = Modifier.padding(top = 26.dp)){
+                Navigation(navController)
+            }
         },
         bottomBar = { BottomNavigationBar(navController) },
     )

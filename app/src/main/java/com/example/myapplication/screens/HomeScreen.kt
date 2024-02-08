@@ -86,23 +86,17 @@ class NoRippleInteractionSource : MutableInteractionSource {
     override fun tryEmit(interaction: Interaction) = true
 }
 
-interface ITestDataItem {
-    var id: String
-    var title: String
-    var url: String
-}
+
 
 data class TestDataItem(
-    override var id: String,
-    override var title: String,
-    override var url: String
-) : ITestDataItem
+     var id: String,
+     var title: String,
+     var url: String
+)
 
-private const val LIST_SIZE = 50
 
-open class STestData
 
-object TestData : STestData() {
+object TestData {
     val imagesList = listOf(
         "https://i.pinimg.com/564x/59/a5/34/59a5344b6dd9eb7089d78e7eefeee9d8.jpg",
         "https://i.pinimg.com/564x/2e/5f/b0/2e5fb01fc7feeb16519ac5cd629ca28f.jpg",
@@ -116,7 +110,7 @@ object TestData : STestData() {
         "https://i.pinimg.com/564x/e6/ca/6b/e6ca6b20ce7dc8c2fa2a9145eb6391e4.jpg"
     )
 
-    val testItemsList = List(LIST_SIZE) {
+    val testItemsList = List(50) {
         val randomIndex = Random.nextInt(imagesList.size)
         TestDataItem(
             id = Random.nextInt(100, 100000).toString(),

@@ -61,17 +61,16 @@ fun CameraPreview(
     }
 
     LaunchedEffect(context) {
-        val camera = Manifest.permission.CAMERA
         when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
                 context,
-                camera
+                Manifest.permission.CAMERA
             ) -> {
                 Log.d("CameraPreview", "Camera permission already granted")
                 isCameraPermissionGranted = true
             }
             else -> {
-                launcher.launch(camera)
+                launcher.launch(Manifest.permission.CAMERA)
             }
         }
     }
