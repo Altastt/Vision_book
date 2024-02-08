@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.*
@@ -18,11 +17,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.nestedscroll.nestedScrollModifierNode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -41,7 +38,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            MainScreen(rememberNavController())
 
         }
     }
@@ -70,7 +67,9 @@ fun TopBar(navController: NavController, topAppBarState: MutableState<Boolean>) 
         exit = slideOutVertically(targetOffsetY = { -it }),
         content = {
             TopAppBar(
-                title = { Text(
+                title = {
+                    // сделать запоминание состояния и менять текст для разных вкладок
+                    Text(
                     "Начнем творить вместе с ИИ?",
                     modifier = Modifier.padding(start = 12.dp, end = 20.dp),
                     style = TextStyle(
@@ -139,19 +138,27 @@ fun BottomNavigationBar(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
-    val navController = rememberNavController()
+fun MainScreen(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val topBarState = rememberSaveable { (mutableStateOf(true)) }
     when (navBackStackEntry?.destination?.route) {
-        "home" -> { topBarState.value = true }
-        "books" -> { topBarState.value = false }
-        "camera" -> { topBarState.value = false }
-        "bookmarks" -> { topBarState.value = false }
-        "profile" -> { topBarState.value = false }
+        "home" -> {
+            rememberSaveable { (mutableStateOf(true)) }.value = true
+        }
+        "books" -> {
+            rememberSaveable { (mutableStateOf(true)) }.value = true
+        }
+        "camera" -> {
+            rememberSaveable { (mutableStateOf(true)) }.value = false
+        }
+        "bookmarks" -> {
+            rememberSaveable { (mutableStateOf(true)) }.value = false
+        }
+        "profile" -> {
+            rememberSaveable { (mutableStateOf(true)) }.value = false
+        }
     }
     Scaffold(
-        topBar = { TopBar(navController, topBarState) },
+        topBar = { TopBar(navController, rememberSaveable { (mutableStateOf(true)) }) },
         content = { padding ->
                   Column(modifier = Modifier.padding(top = 26.dp)){
                       Navigation(navController)

@@ -36,39 +36,45 @@ fun HomeScreen() {
         content = {
 // прогружать некоторое количество, после чего включать загрузку следующей пачки фото для предотвращения лагов (определить количество элементов пачки)
             items(TestData.testItemsList){image ->
-                Surface(shape = RoundedCornerShape(percent = 10)){
-                    Box(contentAlignment = Alignment.BottomEnd) {
-                        AsyncImage(model = image.url, contentDescription = "",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxWidth()
-                                .wrapContentHeight())
-                            var checked by remember {
-                                mutableStateOf(false) // initially checked
-                            }
-                            IconToggleButton(
-                                modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
-                                    .then(
-                                        Modifier.size(21.dp)
-                                    ),
-                                checked = checked,
-                                onCheckedChange = { _checked ->
-                                    checked = _checked
-                                },
-                                interactionSource = NoRippleInteractionSource()
-                            ) {
-                                // Заменить иконку
-                                Icon(
-                                    painter = painterResource(R.drawable.like),
-                                    "Like",
-                                    tint = if (checked) Orange else Color.LightGray
-                                )
-                            }
-                    }
-                }
+                HomeScreenItems(image)
             }
         },
         modifier = Modifier.fillMaxSize().padding(top = 40.dp, start = 12.dp, end = 12.dp)
     )
+}
+
+@Composable
+private fun HomeScreenItems(image: TestDataItem) {
+    Surface(shape = RoundedCornerShape(percent = 10)) {
+        Box(contentAlignment = Alignment.BottomEnd) {
+            AsyncImage(
+                model = image.url, contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
+                    .wrapContentHeight()
+            )
+            var checked by remember {
+                mutableStateOf(false) // initially checked
+            }
+            IconToggleButton(
+                modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
+                    .then(
+                        Modifier.size(21.dp)
+                    ),
+                checked = checked,
+                onCheckedChange = { _checked ->
+                    checked = _checked
+                },
+                interactionSource = NoRippleInteractionSource()
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.like),
+                    "Like",
+                    tint = if (checked) Orange else Color.LightGray
+                )
+            }
+        }
+    }
 }
 
 class NoRippleInteractionSource : MutableInteractionSource {
@@ -80,13 +86,23 @@ class NoRippleInteractionSource : MutableInteractionSource {
     override fun tryEmit(interaction: Interaction) = true
 }
 
-data class TestDataItem(
-    var id: String,
-    var title: String,
+interface ITestDataItem {
+    var id: String
+    var title: String
     var url: String
-)
+}
 
-object TestData{
+data class TestDataItem(
+    override var id: String,
+    override var title: String,
+    override var url: String
+) : ITestDataItem
+
+private const val LIST_SIZE = 50
+
+open class STestData
+
+object TestData : STestData() {
     val imagesList = listOf(
         "https://i.pinimg.com/564x/59/a5/34/59a5344b6dd9eb7089d78e7eefeee9d8.jpg",
         "https://i.pinimg.com/564x/2e/5f/b0/2e5fb01fc7feeb16519ac5cd629ca28f.jpg",
@@ -100,7 +116,7 @@ object TestData{
         "https://i.pinimg.com/564x/e6/ca/6b/e6ca6b20ce7dc8c2fa2a9145eb6391e4.jpg"
     )
 
-    val testItemsList = List(50) {
+    val testItemsList = List(LIST_SIZE) {
         val randomIndex = Random.nextInt(imagesList.size)
         TestDataItem(
             id = Random.nextInt(100, 100000).toString(),
