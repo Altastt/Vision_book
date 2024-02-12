@@ -1,4 +1,4 @@
-package com.example.myapplication.screens
+package com.example.myapplication.itemsOfScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -35,7 +35,7 @@ fun SearchAndFilters() {
                 color = DarkGrey,
                 fontFamily = sourceSans,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp
+                fontSize = 18.sp
             ),
             trailingIcon = {
                 IconButton(onClick = { value.value = "" }) {
@@ -52,7 +52,7 @@ fun SearchAndFilters() {
                         color = DarkGrey,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 20.sp
+                        fontSize = 18.sp
                     )
                 )
             },
@@ -68,7 +68,7 @@ fun SearchAndFilters() {
         // изменить внешний вид нажатия
         Button(
             onClick = { },
-            modifier = Modifier.padding(start = 15.dp).size(60.dp).fillMaxWidth(),
+            modifier = Modifier.padding(start = 15.dp).size(58.dp).fillMaxWidth(),
             shape = RoundedCornerShape(percent = 30),
             contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 15.dp, bottom = 15.dp),
             colors = ButtonDefaults.buttonColors(Orange),

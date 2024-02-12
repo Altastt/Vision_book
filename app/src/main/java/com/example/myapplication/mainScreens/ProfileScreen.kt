@@ -1,4 +1,4 @@
-package com.example.myapplication.screens
+package com.example.myapplication.mainScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import com.example.myapplication.R
 
 @Composable
-fun BookmarksScreen() {
+fun ProfileScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -24,10 +24,10 @@ fun BookmarksScreen() {
         verticalArrangement = Arrangement.Center
     ) {
         Icon(
-            painter = painterResource(R.drawable.bookmark),
-            contentDescription = "Bookmarks",
+            painter = painterResource(R.drawable.profile),
+            contentDescription = "Profile",
             tint = Color(0xFF0F9D58)
         )
-        Text(text = "Bookmarks", color = Color.Black)
+        Text(text = "Profile", color = Color.Black)
     }
 }

@@ -30,7 +30,6 @@ import com.example.myapplication.ui.theme.Orange
 import java.io.File
 import java.util.concurrent.ExecutionException
 
-
 @Composable
 fun CameraPreview(
     modifier : Modifier = Modifier,
@@ -43,12 +42,15 @@ fun CameraPreview(
     enableTorch: Boolean = false,
     focusOnTap: Boolean = false
 ) {
+    // Permission State
     var isCameraPermissionGranted by remember { mutableStateOf(false) }
     var isCapturingImage by remember { mutableStateOf(false) }
 
+    // Context and Lifecycle
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
+    // Request Camera Permission
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -60,6 +62,7 @@ fun CameraPreview(
         }
     }
 
+    // Check Camera Permission
     LaunchedEffect(context) {
         when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
@@ -75,17 +78,19 @@ fun CameraPreview(
         }
     }
 
+    // Camera Provider
     val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
 
     val cameraProvider by produceState<ProcessCameraProvider?>(initialValue = null) {
         value = try {
             cameraProviderFuture.get()
         } catch (e: ExecutionException) {
-            // Обработка ошибки, если не удалось получить объект ProcessCameraProvider
+            // Handle if failed to get ProcessCameraProvider
             null
         }
     }
 
+    // Bind Camera Lifecycle
     val camera = remember(cameraProvider) {
         cameraProvider?.let {
             it.unbindAll()
@@ -97,6 +102,7 @@ fun CameraPreview(
         }
     }
 
+    // Torch and Focus
     LaunchedEffect(camera, enableTorch) {
         camera?.let {
             if (it.cameraInfo.hasFlashUnit()) {
@@ -105,7 +111,13 @@ fun CameraPreview(
         }
     }
 
-    Column(modifier = modifier.fillMaxWidth().fillMaxHeight(0.8f), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
+    // Composable UI
+    Column(
+        modifier = modifier.fillMaxWidth().fillMaxHeight(0.8f),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Camera Preview
         AndroidView(
             modifier = modifier
                 .weight(1f)
@@ -134,24 +146,28 @@ fun CameraPreview(
             }
         )
 
+        // Capture Button
         Button(
             onClick = {
                 isCapturingImage = true
                 val file = File(context.filesDir, "${System.currentTimeMillis()}.jpg")
                 val outputFileOptions = ImageCapture.OutputFileOptions.Builder(file).build()
-                imageCapture?.takePicture(outputFileOptions, ContextCompat.getMainExecutor(context), object : ImageCapture.OnImageSavedCallback {
-                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        isCapturingImage = false
-                        Toast.makeText(context, "Image captured successfully", Toast.LENGTH_SHORT).show()
-                        Log.d("CameraPreview", "File path: ${file.path}")
-                    }
+                imageCapture?.takePicture(
+                    outputFileOptions,
+                    ContextCompat.getMainExecutor(context),
+                    object : ImageCapture.OnImageSavedCallback {
+                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                            isCapturingImage = false
+                            Toast.makeText(context, "Image captured successfully", Toast.LENGTH_SHORT).show()
+                            Log.d("CameraPreview", "File path: ${file.path}")
+                        }
 
-                    override fun onError(exception: ImageCaptureException) {
-                        isCapturingImage = false
-                        Toast.makeText(context, "Error capturing image", Toast.LENGTH_SHORT).show()
-                        Log.e("CameraPreview", "Error capturing image: ${exception.message}", exception)
-                    }
-                })
+                        override fun onError(exception: ImageCaptureException) {
+                            isCapturingImage = false
+                            Toast.makeText(context, "Error capturing image", Toast.LENGTH_SHORT).show()
+                            Log.e("CameraPreview", "Error capturing image: ${exception.message}", exception)
+                        }
+                    })
             },
             modifier = Modifier
                 .padding(16.dp)
@@ -159,8 +175,10 @@ fun CameraPreview(
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(contentColor = LightGreyText, containerColor = Orange)
         ) {
-            Icon(painter = painterResource(R.drawable.circle),
-                contentDescription = "Take Picture")
+            Icon(
+                painter = painterResource(R.drawable.circle),
+                contentDescription = "Take Picture"
+            )
         }
     }
 }
