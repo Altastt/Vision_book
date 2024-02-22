@@ -24,7 +24,7 @@ fun BooksScreen() {
         }
     }
 }
-object Books{
+object Books {
     val booksList = List(20) {
         val randomIndex = Random.nextInt(DataBooksScreen.imagesList.size)
         BooksItem(

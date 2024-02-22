@@ -34,7 +34,7 @@ fun MainScreen() {
         "home" -> { topBarState.value = true }
         "books" -> { topBarState.value = true }
         "camera" -> { topBarState.value = false }
-        "bookmarks" -> { topBarState.value = false }
+        "bookmarks" -> { topBarState.value = true }
         "profile" -> { topBarState.value = false }
         "post" -> { topBarState.value = false }
     }

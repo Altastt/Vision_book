@@ -31,7 +31,7 @@ import java.io.File
 import java.util.concurrent.ExecutionException
 
 @Composable
-fun CameraPreview(
+fun CameraScreen(
     modifier : Modifier = Modifier,
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA,
     implementationMode: PreviewView.ImplementationMode = PreviewView.ImplementationMode.COMPATIBLE,
@@ -114,7 +114,6 @@ fun CameraPreview(
     // Composable UI
     Column(
         modifier = modifier.fillMaxWidth().fillMaxHeight(0.8f),
-        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Camera Preview

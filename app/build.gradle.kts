@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("com.google.android.engage:engage-core:1.3.0")
+
     // Camera
     implementation("androidx.camera:camera-core:1.3.1")
     implementation("androidx.camera:camera-view:1.3.1")
@@ -83,5 +84,8 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     implementation ("com.google.accompanist:accompanist-permissions:0.23.0")
+
+    // Exo Player Library
+    implementation ("com.google.android.exoplayer:exoplayer:2.16.1")
 
 }

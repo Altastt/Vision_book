@@ -1,7 +1,12 @@
 package com.example.myapplication.models
 
-import CameraPreview
+import CameraScreen
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,7 +24,7 @@ fun Navigation(navController: NavHostController) {
             BooksScreen()
         }
         composable(NavigationItems.Camera.route) {
-            CameraPreview()
+            CameraScreen()
         }
         composable(NavigationItems.Bookmarks.route) {
             BookmarksScreen()
@@ -28,7 +33,7 @@ fun Navigation(navController: NavHostController) {
             ProfileScreen()
         }
         composable(NavigationItems.Post.route) {
-            Post()
+                Post()
         }
     }
 

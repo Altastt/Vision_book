@@ -48,7 +48,7 @@ fun SearchAndFilters() {
             },
             placeholder = {
                 Text(
-                    "Search...", style = TextStyle(
+                    "Поиск...", style = TextStyle(
                         color = DarkGrey,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
