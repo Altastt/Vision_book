@@ -48,7 +48,8 @@ fun SearchAndFilters() {
             },
             placeholder = {
                 Text(
-                    "Поиск...", style = TextStyle(
+                    "Поиск...",
+                    style = TextStyle(
                         color = DarkGrey,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
@@ -58,13 +59,15 @@ fun SearchAndFilters() {
             },
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = Orange,
-                textColor = DarkGrey,
+                disabledTextColor = DarkGrey,
                 disabledLeadingIconColor = DarkGrey,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             )
         )
+
+
         // изменить внешний вид нажатия
         Button(
             onClick = { },

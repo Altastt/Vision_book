@@ -55,7 +55,6 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
     implementation("com.google.android.engage:engage-core:1.3.0")
 
     // Camera
@@ -64,6 +63,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.1")
     implementation ("androidx.camera:camera-camera2:1.3.1")
     implementation("androidx.test:runner:1.5.2")
+    implementation("androidx.compose.material3:material3-android:1.2.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -87,5 +87,8 @@ dependencies {
 
     // Exo Player Library
     implementation ("com.google.android.exoplayer:exoplayer:2.16.1")
+
+    // Library
+    implementation ("androidx.core:core-ktx:1.7.0")
 
 }

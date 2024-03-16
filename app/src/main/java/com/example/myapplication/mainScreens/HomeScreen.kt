@@ -23,12 +23,11 @@ fun HomeScreen(navController: NavController) {
         verticalItemSpacing = 12.dp,
         horizontalArrangement = Arrangement.spacedBy(15.dp),
         content = {
-// прогружать некоторое количество, после чего включать загрузку следующей пачки фото для предотвращения лагов (определить количество элементов пачки)
             items(TestData.testItemsList){image ->
                 HomeScreenItems(image, navController)
             }
         },
-        modifier = Modifier.fillMaxSize().padding(top = 40.dp, start = 12.dp, end = 12.dp)
+        modifier = Modifier.fillMaxSize().padding(top = 64.dp, start = 12.dp, end = 12.dp)
     )
 }
 

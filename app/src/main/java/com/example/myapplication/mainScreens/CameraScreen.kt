@@ -1,5 +1,9 @@
 import android.Manifest
+import android.content.ContentValues
+import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -44,7 +48,6 @@ fun CameraScreen(
 ) {
     // Permission State
     var isCameraPermissionGranted by remember { mutableStateOf(false) }
-    var isCapturingImage by remember { mutableStateOf(false) }
 
     // Context and Lifecycle
     val context = LocalContext.current
@@ -85,7 +88,6 @@ fun CameraScreen(
         value = try {
             cameraProviderFuture.get()
         } catch (e: ExecutionException) {
-            // Handle if failed to get ProcessCameraProvider
             null
         }
     }
@@ -147,27 +149,7 @@ fun CameraScreen(
 
         // Capture Button
         Button(
-            onClick = {
-                isCapturingImage = true
-                val file = File(context.filesDir, "${System.currentTimeMillis()}.jpg")
-                val outputFileOptions = ImageCapture.OutputFileOptions.Builder(file).build()
-                imageCapture?.takePicture(
-                    outputFileOptions,
-                    ContextCompat.getMainExecutor(context),
-                    object : ImageCapture.OnImageSavedCallback {
-                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                            isCapturingImage = false
-                            Toast.makeText(context, "Image captured successfully", Toast.LENGTH_SHORT).show()
-                            Log.d("CameraPreview", "File path: ${file.path}")
-                        }
-
-                        override fun onError(exception: ImageCaptureException) {
-                            isCapturingImage = false
-                            Toast.makeText(context, "Error capturing image", Toast.LENGTH_SHORT).show()
-                            Log.e("CameraPreview", "Error capturing image: ${exception.message}", exception)
-                        }
-                    })
-            },
+            onClick = { takePhoto(imageCapture, context) },
             modifier = Modifier
                 .padding(16.dp)
                 .size(80.dp),
@@ -180,4 +162,46 @@ fun CameraScreen(
             )
         }
     }
+}
+
+private fun takePhoto(imageCapture: ImageCapture?, context: Context) {
+    imageCapture?.let { capture ->
+        val file = File(context.filesDir, "${System.currentTimeMillis()}.jpg")
+        val outputFileOptions = ImageCapture.OutputFileOptions.Builder(file).build()
+        capture.takePicture(
+            outputFileOptions,
+            ContextCompat.getMainExecutor(context),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    saveImageToGallery(context, file)
+                    Log.d("CameraPreview", "File path: ${file.path}")
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    Toast.makeText(context, "Error capturing image", Toast.LENGTH_SHORT).show()
+                    Log.e("CameraPreview", "Error capturing image: ${exception.message}", exception)
+                }
+            })
+    }
+}
+
+private fun saveImageToGallery(context: Context, file: File) {
+    val contentValues = ContentValues().apply {
+        put(MediaStore.Images.Media.DISPLAY_NAME, file.name)
+        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+        put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+    }
+
+    val contentResolver = context.contentResolver
+    val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+    uri?.let { imageUri ->
+        contentResolver.openOutputStream(imageUri)?.use { outputStream ->
+            file.inputStream().use { inputStream ->
+                inputStream.copyTo(outputStream)
+            }
+        }
+    }
+
+    Toast.makeText(context, "Image saved to gallery", Toast.LENGTH_SHORT).show()
 }

@@ -17,7 +17,7 @@ fun BooksScreen() {
 
     // в фильтрах сделать разделение на подтемы
     LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(top = 40.dp)
+        modifier = Modifier.fillMaxSize().padding(top = 46.dp)
     ) {
         items(Books.booksList) { book ->
             BooksScreenItems(book)

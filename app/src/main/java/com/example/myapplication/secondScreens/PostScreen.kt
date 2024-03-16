@@ -47,10 +47,7 @@ fun Post(){
     Box(modifier = Modifier.fillMaxSize()) {
         val mContext = LocalContext.current
 
-        // на конце ссылки .mp4
-        // в последствии - список видео
         val videoUrl = "https://static.videezy.com/system/resources/previews/000/054/572/original/R-10.mp4"
-        // создание картинки из видео (взятый кадр)
         val retriever = MediaMetadataRetriever()
         retriever.setDataSource(videoUrl)
 

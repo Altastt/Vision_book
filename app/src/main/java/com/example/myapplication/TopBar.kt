@@ -19,10 +19,24 @@ import com.example.myapplication.itemsOfScreen.SearchAndFilters
 import com.example.myapplication.ui.theme.DarkGrey
 import com.example.myapplication.ui.theme.sourceSans
 
+
+@Composable
+fun AnimatedTopNavigationBar(
+    navController: NavController,
+    topAppBarState: MutableState<Boolean>
+) {
+    AnimatedVisibility(
+        visible = topAppBarState.value,
+        enter = slideInVertically(initialOffsetY = { -it }),
+        exit = slideOutVertically(targetOffsetY = { -it })
+    ) {
+        TopBar(navController)
+    }
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint
 @Composable
-fun TopBar(navController: NavController, topAppBarState: MutableState<Boolean>) {
+fun TopBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val title: String = when (navBackStackEntry?.destination?.route ?: "home") {
         "home" -> "Home"
@@ -32,11 +46,6 @@ fun TopBar(navController: NavController, topAppBarState: MutableState<Boolean>) 
         "profile" -> "Profile"
         else -> "Home"
     }
-    AnimatedVisibility(
-        visible = topAppBarState.value,
-        enter = slideInVertically(initialOffsetY = { -it }),
-        exit = slideOutVertically(targetOffsetY = { -it }),
-        content = {
             TopAppBar(
                 title = { Text(
                     "Начнем творить вместе с ИИ?",
@@ -60,7 +69,4 @@ fun TopBar(navController: NavController, topAppBarState: MutableState<Boolean>) 
                     }
                 }
             )
-        }
-    )
-
 }
