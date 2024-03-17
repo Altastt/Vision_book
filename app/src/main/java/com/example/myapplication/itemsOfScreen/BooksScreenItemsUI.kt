@@ -2,14 +2,12 @@ package com.example.myapplication.itemsOfScreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +17,8 @@ import coil.compose.AsyncImage
 import com.example.myapplication.data.BooksItem
 import com.example.myapplication.ui.theme.DarkGrey
 import com.example.myapplication.ui.theme.sourceSans
+import com.example.myapplication.R
+
 
 @Composable
 fun BooksScreenItems(book: BooksItem) {
@@ -43,7 +43,7 @@ fun BooksScreenItems(book: BooksItem) {
                 Text(
                     "«${book.name}»",
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 19.sp
@@ -53,17 +53,17 @@ fun BooksScreenItems(book: BooksItem) {
                     book.author,
                     modifier = Modifier.padding(top = 3.dp),
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 17.sp
                     )
                 )
                 Text(
-                    "Жанр: ${book.genre}",
+                    "${stringResource(R.string.genre)}: ${book.genre}",
                     modifier = Modifier.padding(top = 12.dp),
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontStyle = FontStyle.Italic,

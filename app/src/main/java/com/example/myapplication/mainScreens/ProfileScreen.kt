@@ -8,6 +8,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.IconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -41,7 +43,7 @@ fun ProfileScreen(navController: NavController) {
             Row(modifier = Modifier.fillMaxWidth()
                 .padding(bottom = 30.dp)
                 .clip(shape = RoundedCornerShape(30))
-                .background(color = Orange),
+                .background(color = MaterialTheme.colorScheme.secondary),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -55,7 +57,7 @@ fun ProfileScreen(navController: NavController) {
                     PostElement.nickname,
                     modifier = Modifier.padding(start = 50.dp),
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.Bold,
                         fontSize = 22.sp
@@ -67,12 +69,12 @@ fun ProfileScreen(navController: NavController) {
                 modifier = Modifier.padding(end = 15.dp)
                     .clip(shape = RoundedCornerShape(30))
                     .size(50.dp)
-                    .background(DarkGrey),) {
+                    .background(MaterialTheme.colorScheme.primary),) {
                 Icon(
                     painter = painterResource(R.drawable.add_photo),
                     "Add_photo",
                     modifier = Modifier.size(40.dp),
-                    tint = LightGreyText
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
 
@@ -82,16 +84,16 @@ fun ProfileScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth()
                 .padding(top = 44.dp)
                 .clip(RoundedCornerShape(15))
-                .background(DarkGrey),
+                .background(MaterialTheme.colorScheme.primary),
         ) {
             val menuItems = listOf(
-                MenuItem(R.drawable.theme, "Theme", "Цветовая тема"),
-                MenuItem(R.drawable.profile_settings, "Profile Settings", "Настройки профиля"),
-                MenuItem(R.drawable.notification, "Notification", "Уведомления"),
-                MenuItem(R.drawable.safety, "Security", "Безопасность"),
-                MenuItem(R.drawable.language, "Language", "Язык"),
-                MenuItem(R.drawable.faq, "FAQ", "FAQ"),
-                MenuItem(R.drawable.quit, "Quit profile", "Выход из профиля")
+                MenuItem(R.drawable.theme, "Theme", stringResource(R.string.theme)),
+                MenuItem(R.drawable.profile_settings, "Profile Settings", stringResource(R.string.profile_settings)),
+                MenuItem(R.drawable.notification, "Notification", stringResource(R.string.notification)),
+                MenuItem(R.drawable.safety, "Security", stringResource(R.string.security)),
+                MenuItem(R.drawable.language, "Language", stringResource(R.string.language)),
+                MenuItem(R.drawable.faq, "FAQ", stringResource(R.string.faq)),
+                MenuItem(R.drawable.quit, "Quit profile", stringResource(R.string.exit_profile))
             )
 
             menuItems.forEach { menuItem ->
@@ -109,7 +111,7 @@ fun MenuButton(iconId: Int, contentDescription: String, text: String) {
     Button(
         onClick = {},
         modifier = Modifier.fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(backgroundColor = DarkGrey),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colorScheme.primary),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),
@@ -119,14 +121,14 @@ fun MenuButton(iconId: Int, contentDescription: String, text: String) {
             Icon(
                 painter = painterResource(iconId),
                 contentDescription = contentDescription,
-                tint = LightGreyText,
+                tint = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.padding(start = 25.dp).size(35.dp)
             )
             Text(
                 text = text,
                 modifier = Modifier.padding(start = 20.dp),
                 style = TextStyle(
-                    color = LightGreyText,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontFamily = sourceSans,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp

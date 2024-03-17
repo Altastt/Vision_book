@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">Search…</string>
+    <string name="topbar_agitation">Let\'s start creating with AI?</string>
+    <string name="genre">Genre</string>
+    <string name="author">Author</string>
+    <string name="name">Name</string>
+    <string name="post_text">Text</string>
+    <string name="theme">Color theme</string>
+    <string name="profile_settings">Profile settings</string>
+    <string name="notification">Notification</string>
+    <string name="security">Security</string>
+    <string name="language">Language</string>
+    <string name="exit_profile">Exit profile</string>
+</resources>

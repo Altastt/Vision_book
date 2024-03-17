@@ -2,12 +2,14 @@ package com.example.myapplication.secondScreens
 
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -79,7 +82,7 @@ fun Post(){
         Surface(modifier = Modifier.fillMaxWidth().padding(top = 200.dp),
             shape = RoundedCornerShape(percent = 10)
         ) {
-            Column(modifier = Modifier.fillMaxSize()
+            Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
                 .padding(start = 12.dp, end = 12.dp)) {
                 Row(modifier = Modifier.fillMaxWidth().padding(bottom = 30.dp, top = 10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -89,7 +92,7 @@ fun Post(){
                         modifier = Modifier.size(70.dp).clip(CircleShape))
                     Text(PostElement.nickname,
                         style = TextStyle(
-                            color = DarkGrey,
+                            color = MaterialTheme.colorScheme.primary,
                             fontFamily = sourceSans,
                             fontWeight = FontWeight.Bold,
                             fontSize = 25.sp
@@ -116,36 +119,36 @@ fun Post(){
                         )
                     }
                 }
-                Text("Автор книги: ${PostElement.authorofBook}",
+                Text("${stringResource(R.string.author)}: ${PostElement.authorofBook}",
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontStyle = FontStyle.Italic,
                         fontSize = 18.sp
                     ),
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
-                Text("Название: ${PostElement.nameBook}",
+                Text("${stringResource(R.string.name)}: ${PostElement.nameBook}",
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontStyle = FontStyle.Italic,
                         fontSize = 18.sp
                     ),
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
-                Text("Тема: ${PostElement.genreBook}",
+                Text("${stringResource(R.string.genre)}: ${PostElement.genreBook}",
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontStyle = FontStyle.Italic,
                         fontSize = 18.sp
                     ),
                     modifier =  Modifier.padding(start = 8.dp, bottom = 40.dp))
-                Text("Текст:",
+                Text("${stringResource(R.string.post_text)}:",
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.Bold,
                         fontSize = 27.sp
@@ -153,7 +156,7 @@ fun Post(){
                     modifier = Modifier.padding(start = 8.dp, bottom = 26.dp))
                 Text("     ${PostElement.text}",
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 18.sp

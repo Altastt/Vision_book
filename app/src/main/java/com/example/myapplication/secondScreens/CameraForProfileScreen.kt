@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -142,7 +143,6 @@ fun SimpleCameraPreview(
         ) {
             IconButton(
                 onClick = {
-                    Toast.makeText(context, "Back Clicked", Toast.LENGTH_SHORT).show()
                     navController.navigate(NavigationItems.Profile.route)
                 },
                 modifier = Modifier
@@ -151,7 +151,7 @@ fun SimpleCameraPreview(
                 Icon(
                     painter = painterResource(R.drawable.arrow_back),
                     contentDescription = "Back Arrow",
-                    tint = Color.DarkGray
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
@@ -163,7 +163,7 @@ fun SimpleCameraPreview(
                 .fillMaxWidth()
                 .padding(15.dp)
                 .clip(RoundedCornerShape(15.dp))
-                .background(Orange, RoundedCornerShape(15.dp))
+                .background(MaterialTheme.colorScheme.secondary, RoundedCornerShape(15.dp))
                 .padding(0.dp)
                 .align(Alignment.BottomCenter)
         ) {
@@ -182,7 +182,7 @@ fun SimpleCameraPreview(
                 Icon(painter = painterResource(id = flashRes),
                     contentDescription = "",
                     modifier = Modifier.size(35.dp),
-                    tint = Color.DarkGray
+                    tint = MaterialTheme.colorScheme.primary
                     )
             }
             Button(
@@ -210,9 +210,9 @@ fun SimpleCameraPreview(
                 },
                 modifier = Modifier
                     .size(70.dp)
-                    .background(Orange, CircleShape)
-                    .border(5.dp, Color.LightGray, CircleShape),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Orange),
+                    .background(MaterialTheme.colorScheme.secondary, CircleShape)
+                    .border(5.dp, MaterialTheme.colorScheme.primary, CircleShape),
+                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colorScheme.secondary),
             ) {
 
             }
@@ -237,7 +237,7 @@ fun SimpleCameraPreview(
                     painter = painterResource(R.drawable.rotate),
                     contentDescription = "rotate",
                     modifier = Modifier.size(35.dp),
-                    tint = Color.DarkGray
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -45,7 +46,7 @@ private fun BottomNavigationBar(navController: NavController) {
         NavigationItems.Profile,
     )
     BottomNavigation(
-        backgroundColor = DarkGrey,
+        backgroundColor = MaterialTheme.colorScheme.onSecondary,
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 14.dp)
             .clip(RoundedCornerShape(percent = 30))
             .height(60.dp)
@@ -58,12 +59,12 @@ private fun BottomNavigationBar(navController: NavController) {
                     Icon(
                         painter = painterResource(items.icon),
                         contentDescription = items.title,
-                        tint = LightGreyText,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.size(28.dp)
                     )
                 },
-                selectedContentColor = LightGreyText,
-                unselectedContentColor = LightGreyText,
+                selectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                unselectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 selected = currentRoute == items.route,
                 onClick = {
                     navController.navigate(items.route) {

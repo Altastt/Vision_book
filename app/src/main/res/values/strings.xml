@@ -1,4 +1,16 @@
 <resources>
-    <string name="app_name">VisionBook</string>
+    <string name="app_name" translatable="false">VisionBook</string>
     <string name="search">Поиск…</string>
+    <string name="topbar_agitation">Начнем творить вместе с ИИ?</string>
+    <string name="genre">Жанр</string>
+    <string name="author">Автор книги</string>
+    <string name="name">Название</string>
+    <string name="post_text">Текст</string>
+    <string name="theme">Цветовая тема</string>
+    <string name="profile_settings">Настройки профиля</string>
+    <string name="notification">Уведомления</string>
+    <string name="security">Безопасность</string>
+    <string name="language">Язык</string>
+    <string name="faq" translatable="false">FAQ</string>
+    <string name="exit_profile">Выход из профиля</string>
 </resources>

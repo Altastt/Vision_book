@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,7 +33,7 @@ fun SearchAndFilters() {
             onValueChange = { newText -> value.value = newText },
             shape = RoundedCornerShape(percent = 30),
             textStyle = TextStyle(
-                color = DarkGrey,
+                color = MaterialTheme.colorScheme.primary,
                 fontFamily = sourceSans,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp
@@ -42,15 +43,15 @@ fun SearchAndFilters() {
                     Icon(
                         painterResource(R.drawable.close),
                         "search",
-                        tint = DarkGrey
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             },
             placeholder = {
                 Text(
-                    "Поиск...",
+                    stringResource(R.string.search),
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 18.sp
@@ -58,9 +59,9 @@ fun SearchAndFilters() {
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = Orange,
-                disabledTextColor = DarkGrey,
-                disabledLeadingIconColor = DarkGrey,
+                containerColor = MaterialTheme.colorScheme.secondary,
+                disabledTextColor = MaterialTheme.colorScheme.primary,
+                disabledLeadingIconColor = MaterialTheme.colorScheme.primary,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
@@ -74,12 +75,13 @@ fun SearchAndFilters() {
             modifier = Modifier.padding(start = 15.dp).size(58.dp).fillMaxWidth(),
             shape = RoundedCornerShape(percent = 30),
             contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 15.dp, bottom = 15.dp),
-            colors = ButtonDefaults.buttonColors(Orange),
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
             elevation = ButtonDefaults.elevatedButtonElevation(0.dp)
 
         ) {
-            Image(
-                painterResource(R.drawable.filters), "filters"
+            Icon(
+                painterResource(R.drawable.filters), "filters",
+                tint = MaterialTheme.colorScheme.primary
             )
         }
 

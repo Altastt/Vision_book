@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -48,10 +49,10 @@ fun TopBar(navController: NavController) {
     }
             TopAppBar(
                 title = { Text(
-                    "Начнем творить вместе с ИИ?",
+                    stringResource(R.string.topbar_agitation),
                     modifier = Modifier.padding(start = 12.dp, end = 20.dp),
                     style = TextStyle(
-                        color = DarkGrey,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 20.sp)
@@ -62,7 +63,7 @@ fun TopBar(navController: NavController) {
                     IconButton(
                         onClick = { showSearchAndFilters = !showSearchAndFilters }
                     ){
-                        Icon(painter = painterResource(R.drawable.search), "searchTopBar", tint = DarkGrey)
+                        Icon(painter = painterResource(R.drawable.search), "searchTopBar", tint = MaterialTheme.colorScheme.primary)
                     }
                     if(showSearchAndFilters){
                         SearchAndFilters()

@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -154,7 +155,7 @@ fun CameraScreen(
                 .padding(16.dp)
                 .size(80.dp),
             shape = CircleShape,
-            colors = ButtonDefaults.buttonColors(contentColor = LightGreyText, containerColor = Orange)
+            colors = ButtonDefaults.buttonColors(contentColor = MaterialTheme.colorScheme.onPrimary, containerColor = MaterialTheme.colorScheme.secondary)
         ) {
             Icon(
                 painter = painterResource(R.drawable.circle),

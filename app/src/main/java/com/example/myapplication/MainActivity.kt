@@ -12,13 +12,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.models.Navigation
+import com.example.myapplication.ui.theme.MyApplicationTheme
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            MyApplicationTheme{
+                MainScreen()
+            }
         }
     }
 }
