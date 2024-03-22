@@ -13,13 +13,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
@@ -33,8 +31,6 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import java.io.File
 import com.example.myapplication.R
-import com.example.myapplication.models.NavigationItems
-import com.example.myapplication.ui.theme.Orange
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -143,7 +139,7 @@ fun SimpleCameraPreview(
         ) {
             IconButton(
                 onClick = {
-                    navController.navigate(NavigationItems.Profile.route)
+                    navController.navigateUp()
                 },
                 modifier = Modifier
                     .size(35.dp)
@@ -212,7 +208,7 @@ fun SimpleCameraPreview(
                     .size(70.dp)
                     .background(MaterialTheme.colorScheme.secondary, CircleShape)
                     .border(5.dp, MaterialTheme.colorScheme.primary, CircleShape),
-                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colorScheme.secondary),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
             ) {
 
             }

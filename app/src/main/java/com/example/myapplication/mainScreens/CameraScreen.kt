@@ -30,8 +30,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.example.myapplication.R
-import com.example.myapplication.ui.theme.LightGreyText
-import com.example.myapplication.ui.theme.Orange
 import java.io.File
 import java.util.concurrent.ExecutionException
 

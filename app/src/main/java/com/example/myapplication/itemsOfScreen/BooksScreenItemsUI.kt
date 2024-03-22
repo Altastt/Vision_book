@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.myapplication.data.BooksItem
-import com.example.myapplication.ui.theme.DarkGrey
 import com.example.myapplication.ui.theme.sourceSans
 import com.example.myapplication.R
 

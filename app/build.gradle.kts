@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.myapplication"
-        minSdk = 28
+        minSdk = 29
         //noinspection OldTargetApi
         targetSdk = 33
         versionCode = 1

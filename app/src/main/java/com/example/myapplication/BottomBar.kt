@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -19,8 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.models.NavigationItems
-import com.example.myapplication.ui.theme.DarkGrey
-import com.example.myapplication.ui.theme.LightGreyText
 
 @Composable
 fun AnimatedBottomNavigationBar(
@@ -45,8 +40,8 @@ private fun BottomNavigationBar(navController: NavController) {
         NavigationItems.Bookmarks,
         NavigationItems.Profile,
     )
-    BottomNavigation(
-        backgroundColor = MaterialTheme.colorScheme.onSecondary,
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.onSecondary,
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 14.dp)
             .clip(RoundedCornerShape(percent = 30))
             .height(60.dp)
@@ -54,17 +49,17 @@ private fun BottomNavigationBar(navController: NavController) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { items ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = {
+                    val colorOfItemNavBar = if (currentRoute == items.route) MaterialTheme.colorScheme.primaryContainer
+                    else MaterialTheme.colorScheme.onSecondaryContainer
                     Icon(
                         painter = painterResource(items.icon),
                         contentDescription = items.title,
-                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                        tint = colorOfItemNavBar,
                         modifier = Modifier.size(28.dp)
                     )
                 },
-                selectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                unselectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 selected = currentRoute == items.route,
                 onClick = {
                     navController.navigate(items.route) {

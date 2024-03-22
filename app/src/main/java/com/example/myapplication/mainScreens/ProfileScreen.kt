@@ -4,12 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.IconButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,9 +21,6 @@ import coil.compose.AsyncImage
 import com.example.myapplication.R
 import com.example.myapplication.models.NavigationItems
 import com.example.myapplication.secondScreens.PostElement
-import com.example.myapplication.ui.theme.DarkGrey
-import com.example.myapplication.ui.theme.LightGreyText
-import com.example.myapplication.ui.theme.Orange
 import com.example.myapplication.ui.theme.sourceSans
 
 @Composable
@@ -111,7 +103,7 @@ fun MenuButton(iconId: Int, contentDescription: String, text: String) {
     Button(
         onClick = {},
         modifier = Modifier.fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colorScheme.primary),
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),

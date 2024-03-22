@@ -1,6 +1,5 @@
 package com.example.myapplication.itemsOfScreen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -16,8 +15,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
-import com.example.myapplication.ui.theme.DarkGrey
-import com.example.myapplication.ui.theme.Orange
 import com.example.myapplication.ui.theme.sourceSans
 
 @OptIn(ExperimentalMaterial3Api::class)

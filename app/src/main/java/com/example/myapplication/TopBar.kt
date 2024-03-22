@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.itemsOfScreen.SearchAndFilters
-import com.example.myapplication.ui.theme.DarkGrey
 import com.example.myapplication.ui.theme.sourceSans
 
 
@@ -59,7 +58,7 @@ fun TopBar(navController: NavController) {
                 )
                 },
                 actions = {
-                    var showSearchAndFilters by remember { mutableStateOf(false) } // -> STATE
+                    var showSearchAndFilters by remember { mutableStateOf(false) }
                     IconButton(
                         onClick = { showSearchAndFilters = !showSearchAndFilters }
                     ){
