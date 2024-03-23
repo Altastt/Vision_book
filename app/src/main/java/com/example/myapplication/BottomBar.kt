@@ -41,7 +41,6 @@ private fun BottomNavigationBar(navController: NavController) {
         NavigationItems.Profile,
     )
     NavigationBar(
-        containerColor = MaterialTheme.colorScheme.onSecondary,
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 14.dp)
             .clip(RoundedCornerShape(percent = 30))
             .height(60.dp)
@@ -51,12 +50,9 @@ private fun BottomNavigationBar(navController: NavController) {
         items.forEach { items ->
             NavigationBarItem(
                 icon = {
-                    val colorOfItemNavBar = if (currentRoute == items.route) MaterialTheme.colorScheme.primaryContainer
-                    else MaterialTheme.colorScheme.onSecondaryContainer
                     Icon(
                         painter = painterResource(items.icon),
                         contentDescription = items.title,
-                        tint = colorOfItemNavBar,
                         modifier = Modifier.size(28.dp)
                     )
                 },

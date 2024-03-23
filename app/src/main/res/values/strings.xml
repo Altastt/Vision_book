@@ -13,4 +13,15 @@
     <string name="language">Язык</string>
     <string name="faq" translatable="false">FAQ</string>
     <string name="exit_profile">Выход из профиля</string>
+
+
+    <string name="permission_canceled">Разрешение отклонено</string>
+    <string name="permission_canceled_request">Пожалуйста, добавьте разрешение вручную: \n(Настройки -> Приложения -> Диспетчер прав)</string>
+
+    <string name="premaincamera_newbook">Новая книга?</string>
+    <string name="premaincamera_newbook_text">Выберите книгу из списка \nили введите свою</string>
+    <string name="premaincamera_newbook_yes">Да</string>
+    <string name="premaincamera_newbook_no">Нет</string>
+    <string name="premaincamera_newbook_continue">Продолжить</string>
+    <string name="premaincamera_newbook_back">Назад</string>
 </resources>

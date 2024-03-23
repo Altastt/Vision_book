@@ -1,84 +1,42 @@
-import android.Manifest
-import android.content.ContentValues
 import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Environment
-import android.provider.MediaStore
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import android.net.Uri
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.itemsOfScreen.BackButton
+import com.example.myapplication.itemsOfScreen.ButtonCaptureImage
+import com.example.myapplication.models.FaceAnalyser
 import java.io.File
 import java.util.concurrent.ExecutionException
 
 @Composable
-fun CameraScreen(
-    modifier : Modifier = Modifier,
-    cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA,
-    implementationMode: PreviewView.ImplementationMode = PreviewView.ImplementationMode.COMPATIBLE,
-    scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER,
-    imageAnalysis: ImageAnalysis? = null,
-    imageCapture: ImageCapture? = null,
-    preview: Preview = remember { Preview.Builder().build() },
-    enableTorch: Boolean = false,
-    focusOnTap: Boolean = false
+fun BookCameraPreview(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    context: Context,
+    lifecycleOwner: LifecycleOwner,
+    outputDirectory: File,
+    onMediaCaptured: (Uri?) -> Unit
 ) {
-    // Permission State
-    var isCameraPermissionGranted by remember { mutableStateOf(false) }
-
-    // Context and Lifecycle
-    val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    // Request Camera Permission
-    val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            Log.d("CameraPreview", "CAMERA PERMISSION GRANTED")
-            isCameraPermissionGranted = true
-        } else {
-            Log.d("CameraPreview", "CAMERA PERMISSION DENIED")
-        }
-    }
-
-    // Check Camera Permission
-    LaunchedEffect(context) {
-        when (PackageManager.PERMISSION_GRANTED) {
-            ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.CAMERA
-            ) -> {
-                Log.d("CameraPreview", "Camera permission already granted")
-                isCameraPermissionGranted = true
-            }
-            else -> {
-                launcher.launch(Manifest.permission.CAMERA)
-            }
-        }
-    }
+    var imageCapture: ImageCapture? by remember { mutableStateOf(null) }
+    var preview by remember { mutableStateOf<Preview?>(null) }
+    val camera: Camera? = null
+    var flashEnabled by remember { mutableStateOf(false) }
+    var flashRes by remember { mutableStateOf(R.drawable.flash_on) }
+    val executor = ContextCompat.getMainExecutor(context)
 
     // Camera Provider
     val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
@@ -90,117 +48,80 @@ fun CameraScreen(
             null
         }
     }
-
-    // Bind Camera Lifecycle
-    val camera = remember(cameraProvider) {
-        cameraProvider?.let {
-            it.unbindAll()
-            it.bindToLifecycle(
-                lifecycleOwner,
-                cameraSelector,
-                *listOfNotNull(imageAnalysis, imageCapture, preview).toTypedArray()
-            )
-        }
-    }
-
-    // Torch and Focus
-    LaunchedEffect(camera, enableTorch) {
-        camera?.let {
-            if (it.cameraInfo.hasFlashUnit()) {
-                it.cameraControl.enableTorch(enableTorch)
-            }
-        }
-    }
-
-    // Composable UI
-    Column(
-        modifier = modifier.fillMaxWidth().fillMaxHeight(0.8f),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Camera Preview
+    val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    Box {
         AndroidView(
-            modifier = modifier
-                .weight(1f)
-                .pointerInput(camera, focusOnTap) {
-                    if (!focusOnTap) return@pointerInput
+            modifier = Modifier.fillMaxSize(),
+            factory = { ctx ->
+                val previewView = PreviewView(ctx)
+                cameraProviderFuture.addListener({
+                    val imageAnalysis = ImageAnalysis.Builder()
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build()
+                        .apply {
+                            setAnalyzer(executor, FaceAnalyser())
+                        }
+                    imageCapture = ImageCapture.Builder()
+                        .setTargetRotation(previewView.display.rotation)
+                        .build()
 
-                    detectTapGestures {
-                        val meteringPointFactory = SurfaceOrientedMeteringPointFactory(
-                            size.width.toFloat(),
-                            size.height.toFloat()
-                        )
-                        val meteringAction = FocusMeteringAction.Builder(
-                            meteringPointFactory.createPoint(it.x, it.y),
-                            FocusMeteringAction.FLAG_AF
-                        ).disableAutoCancel().build()
-
-                        camera?.cameraControl?.startFocusAndMetering(meteringAction)
-                    }
-                },
-            factory = { _ ->
-                PreviewView(context).also {
-                    it.scaleType = scaleType
-                    it.implementationMode = implementationMode
-                    preview.setSurfaceProvider(it.surfaceProvider)
+                    cameraProvider?.unbindAll()
+                    cameraProvider?.bindToLifecycle(
+                        lifecycleOwner,
+                        cameraSelector,
+                        imageCapture,
+                        preview
+                    )
+                }, executor)
+                preview = Preview.Builder().build().also {
+                    it.setSurfaceProvider(previewView.surfaceProvider)
                 }
+                previewView
             }
         )
-
-        // Capture Button
-        Button(
-            onClick = { takePhoto(imageCapture, context) },
+        Row (
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(16.dp)
-                .size(80.dp),
-            shape = CircleShape,
-            colors = ButtonDefaults.buttonColors(contentColor = MaterialTheme.colorScheme.onPrimary, containerColor = MaterialTheme.colorScheme.secondary)
+                .fillMaxWidth()
+                .align(Alignment.TopStart)
         ) {
-            Icon(
-                painter = painterResource(R.drawable.circle),
-                contentDescription = "Take Picture"
-            )
+            BackButton(navController = navController)
         }
-    }
-}
 
-private fun takePhoto(imageCapture: ImageCapture?, context: Context) {
-    imageCapture?.let { capture ->
-        val file = File(context.filesDir, "${System.currentTimeMillis()}.jpg")
-        val outputFileOptions = ImageCapture.OutputFileOptions.Builder(file).build()
-        capture.takePicture(
-            outputFileOptions,
-            ContextCompat.getMainExecutor(context),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    saveImageToGallery(context, file)
-                    Log.d("CameraPreview", "File path: ${file.path}")
+        Row (
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(25.dp)
+                .align(Alignment.BottomCenter)
+        ) {
+            IconButton(
+                onClick = {
+                    camera?.let {
+                        if (it.cameraInfo.hasFlashUnit()) {
+                            flashEnabled = !flashEnabled
+                            flashRes = if (flashEnabled) R.drawable.flash_off else
+                                R.drawable.flash_on
+                            it.cameraControl.enableTorch(flashEnabled)
+                        }
+                    }
                 }
+            ) {
+                Icon(painter = painterResource(id = flashRes),
+                    contentDescription = "",
+                    modifier = Modifier.size(35.dp))
+            }
+            ButtonCaptureImage(context, outputDirectory, onMediaCaptured, imageCapture, executor)
+            IconButton(
+                onClick = {
 
-                override fun onError(exception: ImageCaptureException) {
-                    Toast.makeText(context, "Error capturing image", Toast.LENGTH_SHORT).show()
-                    Log.e("CameraPreview", "Error capturing image: ${exception.message}", exception)
                 }
-            })
-    }
-}
-
-private fun saveImageToGallery(context: Context, file: File) {
-    val contentValues = ContentValues().apply {
-        put(MediaStore.Images.Media.DISPLAY_NAME, file.name)
-        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-        put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-    }
-
-    val contentResolver = context.contentResolver
-    val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-
-    uri?.let { imageUri ->
-        contentResolver.openOutputStream(imageUri)?.use { outputStream ->
-            file.inputStream().use { inputStream ->
-                inputStream.copyTo(outputStream)
+            ) {
+                Icon(painter = painterResource(R.drawable.info),
+                    contentDescription = "",
+                    modifier = Modifier.size(35.dp))
             }
         }
     }
-
-    Toast.makeText(context, "Image saved to gallery", Toast.LENGTH_SHORT).show()
 }

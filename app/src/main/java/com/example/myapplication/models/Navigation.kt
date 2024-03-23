@@ -1,14 +1,15 @@
 package com.example.myapplication.models
 
-import CameraScreen
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myapplication.mainScreens.*
-import com.example.myapplication.secondScreens.CameraProfileScreen
 import com.example.myapplication.secondScreens.Post
+import com.example.myapplication.secondScreens.PreMainCameraScreen
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -21,7 +22,7 @@ fun Navigation(navController: NavHostController) {
             BooksScreen()
         }
         composable(NavigationItems.Camera.route) {
-            CameraScreen()
+            PreMainCameraScreen(navController)
         }
         composable(NavigationItems.Bookmarks.route) {
             BookmarksScreen()
@@ -33,7 +34,7 @@ fun Navigation(navController: NavHostController) {
             Post()
         }
         composable(NavigationItems.CameraForProfile.route) {
-            CameraProfileScreen(LocalContext.current, navController)
+            Camera(LocalContext.current, navController)
         }
     }
 

@@ -9,7 +9,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -19,7 +18,6 @@ import com.example.myapplication.R
 import com.example.myapplication.data.TestDataItem
 import com.example.myapplication.models.NavigationItems
 import com.example.myapplication.models.NoRippleInteractionSource
-import com.example.myapplication.ui.theme.Orange
 
 @Composable
 fun HomeScreenItems(image: TestDataItem, navController: NavController) {
@@ -49,7 +47,6 @@ fun HomeScreenItems(image: TestDataItem, navController: NavController) {
                 Icon(
                     painter = painterResource(R.drawable.like),
                     "Like",
-                    tint = if (checked) Orange else Color.LightGray
                 )
             }
         }

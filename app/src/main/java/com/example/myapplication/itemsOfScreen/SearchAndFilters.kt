@@ -17,68 +17,20 @@ import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.sourceSans
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchAndFilters() {
     Row(modifier = Modifier.fillMaxWidth()) {
-        val value = remember { mutableStateOf("") }
-        // ПРОВЕРИТЬ: keyboardActions (сделать enter вводом)
-        TextField(
-            value = value.value,
-            modifier = Modifier.fillMaxWidth(0.8f),
-            singleLine = true,
-            onValueChange = { newText -> value.value = newText },
-            shape = RoundedCornerShape(percent = 30),
-            textStyle = TextStyle(
-                color = MaterialTheme.colorScheme.primary,
-                fontFamily = sourceSans,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 18.sp
-            ),
-            trailingIcon = {
-                IconButton(onClick = { value.value = "" }) {
-                    Icon(
-                        painterResource(R.drawable.close),
-                        "search",
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                }
-            },
-            placeholder = {
-                Text(
-                    stringResource(R.string.search),
-                    style = TextStyle(
-                        color = MaterialTheme.colorScheme.primary,
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp
-                    )
-                )
-            },
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = MaterialTheme.colorScheme.secondary,
-                disabledTextColor = MaterialTheme.colorScheme.primary,
-                disabledLeadingIconColor = MaterialTheme.colorScheme.primary,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            )
-        )
-
-
-        // изменить внешний вид нажатия
+        TextFieldCustom(stringResource(R.string.search))
         Button(
             onClick = { },
             modifier = Modifier.padding(start = 15.dp).size(58.dp).fillMaxWidth(),
             shape = RoundedCornerShape(percent = 30),
             contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 15.dp, bottom = 15.dp),
-            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
             elevation = ButtonDefaults.elevatedButtonElevation(0.dp)
 
         ) {
             Icon(
                 painterResource(R.drawable.filters), "filters",
-                tint = MaterialTheme.colorScheme.primary
             )
         }
 

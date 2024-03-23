@@ -2,7 +2,6 @@ package com.example.myapplication.secondScreens
 
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -34,7 +32,6 @@ import com.example.myapplication.R
 import com.example.myapplication.data.DataBooksScreen
 import com.example.myapplication.data.DataPostScreen
 import com.example.myapplication.models.NoRippleInteractionSource
-import com.example.myapplication.ui.theme.Orange
 import com.example.myapplication.ui.theme.sourceSans
 import kotlin.random.Random
 
@@ -76,7 +73,7 @@ fun Post(){
         Surface(modifier = Modifier.fillMaxWidth().padding(top = 200.dp),
             shape = RoundedCornerShape(percent = 10)
         ) {
-            Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
+            Column(modifier = Modifier.fillMaxSize()
                 .padding(start = 12.dp, end = 12.dp)) {
                 Row(modifier = Modifier.fillMaxWidth().padding(bottom = 30.dp, top = 10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -86,7 +83,6 @@ fun Post(){
                         modifier = Modifier.size(70.dp).clip(CircleShape))
                     Text(PostElement.nickname,
                         style = TextStyle(
-                            color = MaterialTheme.colorScheme.primary,
                             fontFamily = sourceSans,
                             fontWeight = FontWeight.Bold,
                             fontSize = 25.sp
@@ -106,16 +102,15 @@ fun Post(){
                         },
                         interactionSource = NoRippleInteractionSource()
                     ) {
+
                         Icon(
                             painter = painterResource(R.drawable.like),
                             "Like",
-                            tint = if (checked) Orange else Color.LightGray
                         )
                     }
                 }
                 Text("${stringResource(R.string.author)}: ${PostElement.authorofBook}",
                     style = TextStyle(
-                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontStyle = FontStyle.Italic,
@@ -124,7 +119,6 @@ fun Post(){
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
                 Text("${stringResource(R.string.name)}: ${PostElement.nameBook}",
                     style = TextStyle(
-                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontStyle = FontStyle.Italic,
@@ -133,7 +127,6 @@ fun Post(){
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
                 Text("${stringResource(R.string.genre)}: ${PostElement.genreBook}",
                     style = TextStyle(
-                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontStyle = FontStyle.Italic,
@@ -142,7 +135,6 @@ fun Post(){
                     modifier =  Modifier.padding(start = 8.dp, bottom = 40.dp))
                 Text("${stringResource(R.string.post_text)}:",
                     style = TextStyle(
-                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.Bold,
                         fontSize = 27.sp
@@ -150,7 +142,6 @@ fun Post(){
                     modifier = Modifier.padding(start = 8.dp, bottom = 26.dp))
                 Text("     ${PostElement.text}",
                     style = TextStyle(
-                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = sourceSans,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 18.sp

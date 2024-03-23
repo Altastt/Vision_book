@@ -2,7 +2,9 @@ package com.example.myapplication.mainScreens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -19,17 +21,20 @@ import kotlin.random.Random
 @Composable
 fun BooksScreen() {
     LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(top = 46.dp)
+        modifier = Modifier.fillMaxSize(),
     ) {
+        item {
+            Spacer(Modifier.padding(top = 60.dp))
+        }
         items(Books.booksList) { book ->
             BooksScreenItems(book)
             HorizontalDivider(modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp).
                 clip(RoundedCornerShape(50)
-            ),
-                thickness = 3.dp,
-                color = MaterialTheme.colorScheme.primaryContainer)
+                ),
+                thickness = 2.dp,
+                color = MaterialTheme.colorScheme.secondary)
         }
     }
 }

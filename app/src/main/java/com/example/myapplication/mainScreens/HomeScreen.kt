@@ -1,9 +1,8 @@
 package com.example.myapplication.mainScreens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,11 +22,14 @@ fun HomeScreen(navController: NavController) {
         verticalItemSpacing = 12.dp,
         horizontalArrangement = Arrangement.spacedBy(15.dp),
         content = {
+            items(2) {
+                Spacer(modifier = Modifier.height(60.dp))
+            }
             items(TestData.testItemsList){image ->
                 HomeScreenItems(image, navController)
             }
         },
-        modifier = Modifier.fillMaxSize().padding(top = 64.dp, start = 12.dp, end = 12.dp)
+        modifier = Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp)
     )
 }
 
