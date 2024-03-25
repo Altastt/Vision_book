@@ -1,21 +1,19 @@
 package com.example.myapplication.secondScreens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.itemsOfScreen.TextFieldCustom
 import com.example.myapplication.models.NavigationItems
-import com.example.myapplication.ui.theme.sourceSans
 
 @Composable
 fun PreMainCameraScreen(navController: NavController) {
@@ -28,40 +26,26 @@ fun PreMainCameraScreen(navController: NavController) {
         Text(
             modifier = Modifier.padding(bottom = 10.dp),
             text = stringResource(R.string.premaincamera_newbook),
-            style = TextStyle(
-                fontFamily = sourceSans,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 30.sp
-            )
+            style = MaterialTheme.typography.headlineLarge
         )
         Text(
             text = stringResource(R.string.premaincamera_newbook_text),
-            style = TextStyle(
-                fontFamily = sourceSans,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp
-            ),
+            style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center
         )
         Row(
             modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-
             // dismiss
             Button(
                 onClick = { navController.navigate(NavigationItems.Books.route) }
             ) {
                 Text(
                     text = stringResource(R.string.premaincamera_newbook_no),
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp
-                    )
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
-
             // confirm
             Button(
                 onClick = {
@@ -70,15 +54,9 @@ fun PreMainCameraScreen(navController: NavController) {
             ) {
                 Text(
                     text = stringResource(R.string.premaincamera_newbook_yes),
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp
-                    )
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
-
-
         }
         if (showAdditionalFields) {
             Column(
@@ -100,11 +78,7 @@ fun PreMainCameraScreen(navController: NavController) {
                 ) {
                     Text(
                         text = stringResource(R.string.premaincamera_newbook_continue),
-                        style = TextStyle(
-                            fontFamily = sourceSans,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp
-                        )
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
 

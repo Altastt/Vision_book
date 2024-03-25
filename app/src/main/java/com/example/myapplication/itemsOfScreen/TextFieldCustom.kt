@@ -21,11 +21,7 @@ fun TextFieldCustom (placeholder: String) {
         singleLine = true,
         onValueChange = { newText -> value.value = newText },
         shape = RoundedCornerShape(percent = 30),
-        textStyle = TextStyle(
-            fontFamily = sourceSans,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 18.sp
-        ),
+        textStyle = MaterialTheme.typography.titleMedium,
         trailingIcon = {
             IconButton(onClick = { value.value = "" }) {
                 Icon(
@@ -37,11 +33,7 @@ fun TextFieldCustom (placeholder: String) {
         placeholder = {
             Text(
                 placeholder,
-                style = TextStyle(
-                    fontFamily = sourceSans,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp
-                )
+                style = MaterialTheme.typography.titleMedium
             )
         },
         // убираю нижнее подчеркивание

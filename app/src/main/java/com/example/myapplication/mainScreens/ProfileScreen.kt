@@ -11,19 +11,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.myapplication.R
 import com.example.myapplication.models.NavigationItems
 import com.example.myapplication.secondScreens.PostElement
-import com.example.myapplication.ui.theme.sourceSans
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(navController: NavController, onThemeUpdated: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,11 +44,7 @@ fun ProfileScreen(navController: NavController) {
                     Text(
                         PostElement.nickname,
                         modifier = Modifier.padding(start = 50.dp),
-                        style = TextStyle(
-                            fontFamily = sourceSans,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 22.sp
-                        )
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
             }
@@ -88,18 +80,21 @@ fun ProfileScreen(navController: NavController) {
                 MenuButton(
                     iconId = menuItem.iconId,
                     contentDescription = menuItem.contentDescription,
-                    text = menuItem.text
+                    text = menuItem.text,
+                    onThemeUpdated
                 )
             }
         }
     }
 }
 @Composable
-fun MenuButton(iconId: Int, contentDescription: String, text: String) {
+fun MenuButton(iconId: Int, contentDescription: String, text: String, onThemeUpdated: () -> Unit) {
     Button(
         onClick = {
                   when (contentDescription) {
-                      "Theme" -> {}
+                      "Theme" -> {
+                            onThemeUpdated()
+                      }
                       "Profile Settings" -> {}
                       "Notification" -> {}
                       "Security" -> {}
@@ -124,11 +119,7 @@ fun MenuButton(iconId: Int, contentDescription: String, text: String) {
             Text(
                 text = text,
                 modifier = Modifier.padding(start = 20.dp),
-                style = TextStyle(
-                    fontFamily = sourceSans,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp
-                )
+                style = MaterialTheme.typography.headlineMedium
             )
         }
     }

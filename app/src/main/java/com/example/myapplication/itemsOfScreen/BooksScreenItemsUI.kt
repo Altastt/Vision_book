@@ -3,20 +3,18 @@ package com.example.myapplication.itemsOfScreen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.myapplication.data.BooksItem
-import com.example.myapplication.ui.theme.sourceSans
 import com.example.myapplication.R
+import com.example.myapplication.data.BooksItem
 
 
 @Composable
@@ -40,30 +38,17 @@ fun BooksScreenItems(book: BooksItem) {
             Column(modifier = Modifier.padding(start = 23.dp, top = 10.dp)) {
                 Text(
                     "«${book.name}»",
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 19.sp
-                    )
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Text(
                     book.author,
                     modifier = Modifier.padding(top = 3.dp),
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 17.sp
-                    )
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Text(
                     "${stringResource(R.string.genre)}: ${book.genre}",
                     modifier = Modifier.padding(top = 12.dp),
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 16.sp
-                    )
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
         }

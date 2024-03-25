@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search">Ricerca…</string>
+    <string name="topbar_agitation">Iniziamo a creare con AI?</string>
+
+    <string name="genre">Genere</string>
+    <string name="author">Autore</string>
+    <string name="name">Nome</string>
+    <string name="post_text">Testo</string>
+
+    <string name="theme">Tema del colore</string>
+    <string name="profile_settings">Impostazioni del profilo</string>
+    <string name="notification">Notifiche</string>
+    <string name="security">Sicurezza</string>
+    <string name="language">Lingua</string>
+    <string name="exit_profile">Esci dal profilo</string>
+
+    <string name="permission_canceled">Permesso negato</string>
+    <string name="permission_canceled_request">Aggiungi l\'autorizzazione manualmente: \n(Impostazioni -> Applicazioni ->
+        Gestione diritti)
+    </string>
+
+    <string name="premaincamera_newbook">Un nuovo libro?</string>
+    <string name="premaincamera_newbook_text">Seleziona un libro dall\'elenco \no inserisci il tuo</string>
+    <string name="premaincamera_newbook_yes">SÌ</string>
+    <string name="premaincamera_newbook_no">NO</string>
+    <string name="premaincamera_newbook_continue">Continua</string>
+    <string name="premaincamera_newbook_back">Indietro</string>
+
+    <string name="bookmarks">Preferiti</string>
+</resources>

@@ -14,25 +14,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.graphics.drawable.toDrawable
 import coil.compose.AsyncImage
+import com.example.myapplication.R
+import com.example.myapplication.data.DataBooksScreen
+import com.example.myapplication.data.DataPostScreen
+import com.example.myapplication.models.NoRippleInteractionSource
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
-import com.example.myapplication.R
-import com.example.myapplication.data.DataBooksScreen
-import com.example.myapplication.data.DataPostScreen
-import com.example.myapplication.models.NoRippleInteractionSource
-import com.example.myapplication.ui.theme.sourceSans
 import kotlin.random.Random
 
 
@@ -82,14 +77,10 @@ fun Post(){
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.size(70.dp).clip(CircleShape))
                     Text(PostElement.nickname,
-                        style = TextStyle(
-                            fontFamily = sourceSans,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 25.sp
-                        )
+                        style = MaterialTheme.typography.bodyLarge
                     )
                     var checked by remember {
-                        mutableStateOf(false) // initially checked
+                        mutableStateOf(false)
                     }
                     IconToggleButton(
                         modifier = Modifier.padding(bottom = 10.dp, end = 10.dp)
@@ -102,7 +93,6 @@ fun Post(){
                         },
                         interactionSource = NoRippleInteractionSource()
                     ) {
-
                         Icon(
                             painter = painterResource(R.drawable.like),
                             "Like",
@@ -110,42 +100,19 @@ fun Post(){
                     }
                 }
                 Text("${stringResource(R.string.author)}: ${PostElement.authorofBook}",
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 18.sp
-                    ),
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
                 Text("${stringResource(R.string.name)}: ${PostElement.nameBook}",
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 18.sp
-                    ),
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
                 Text("${stringResource(R.string.genre)}: ${PostElement.genreBook}",
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 18.sp
-                    ),
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier =  Modifier.padding(start = 8.dp, bottom = 40.dp))
                 Text("${stringResource(R.string.post_text)}:",
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 27.sp
-                    ),
+                    style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(start = 8.dp, bottom = 26.dp))
                 Text("     ${PostElement.text}",
-                    style = TextStyle(
-                        fontFamily = sourceSans,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp
-                    ),
+                    style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(start = 8.dp))
             }
         }

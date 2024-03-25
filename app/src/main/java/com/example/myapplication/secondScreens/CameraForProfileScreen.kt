@@ -23,7 +23,7 @@ import com.example.myapplication.itemsOfScreen.BackButton
 import com.example.myapplication.itemsOfScreen.ButtonCaptureImage
 import com.example.myapplication.models.FaceAnalyser
 import java.util.concurrent.ExecutionException
-
+import java.util.concurrent.Executor
 
 
 @Composable
@@ -33,7 +33,8 @@ fun CameraProfile(
     context: Context,
     lifecycleOwner: LifecycleOwner,
     isCameraPermissionGranted: MutableState<Boolean>) {
-
+    val camera: Camera? = null
+    val executor = ContextCompat.getMainExecutor(context)
     if (isCameraPermissionGranted.value) {
         ProfileCameraPreview(
             navController = navController,
@@ -41,7 +42,9 @@ fun CameraProfile(
             context = context,
             lifecycleOwner = lifecycleOwner,
             outputDirectory = directory,
-            onMediaCaptured = { url -> }
+            onMediaCaptured = { url -> },
+            camera = camera,
+            executor = executor
         )
     } else {
         BackButton(navController = navController)
@@ -56,6 +59,8 @@ fun CameraBook(
     lifecycleOwner: LifecycleOwner,
     isCameraPermissionGranted: MutableState<Boolean>) {
 
+    val camera: Camera? = null
+    val executor = ContextCompat.getMainExecutor(context)
     if (isCameraPermissionGranted.value) {
         BookCameraPreview(
             navController = navController,
@@ -63,14 +68,15 @@ fun CameraBook(
             context = context,
             lifecycleOwner = lifecycleOwner,
             outputDirectory = directory,
-            onMediaCaptured = { url -> }
+            onMediaCaptured = { url -> },
+            camera = camera,
+            executor = executor
         )
     } else {
         BackButton(navController = navController)
         CanceledPermissonScreen()
     }
 }
-// конкретная камера
 @Composable
 fun ProfileCameraPreview(
     navController: NavController,
@@ -78,13 +84,14 @@ fun ProfileCameraPreview(
     context: Context,
     lifecycleOwner: LifecycleOwner,
     outputDirectory: File,
-    onMediaCaptured: (Uri?) -> Unit
+    onMediaCaptured: (Uri?) -> Unit,
+    camera: Camera?,
+    executor: Executor
 ) {
     var imageCapture: ImageCapture? by remember { mutableStateOf(null) }
     var preview by remember { mutableStateOf<Preview?>(null) }
-    val camera: Camera? = null
     var lensFacing by remember { mutableStateOf(CameraSelector.LENS_FACING_BACK) }
-    val executor = ContextCompat.getMainExecutor(context)
+
     var cameraSelector: CameraSelector?
 
     // Camera Provider

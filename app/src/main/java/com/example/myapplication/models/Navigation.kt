@@ -1,18 +1,19 @@
 package com.example.myapplication.models
 
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.myapplication.mainScreens.*
+import com.example.myapplication.mainScreens.BookmarksScreen
+import com.example.myapplication.mainScreens.BooksScreen
+import com.example.myapplication.mainScreens.HomeScreen
+import com.example.myapplication.mainScreens.ProfileScreen
 import com.example.myapplication.secondScreens.Post
 import com.example.myapplication.secondScreens.PreMainCameraScreen
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(navController: NavHostController, onThemeUpdated: () -> Unit) {
 
     NavHost(navController, NavigationItems.Home.route) {
         composable(NavigationItems.Home.route) {
@@ -28,7 +29,7 @@ fun Navigation(navController: NavHostController) {
             BookmarksScreen()
         }
         composable(NavigationItems.Profile.route) {
-            ProfileScreen(navController)
+            ProfileScreen(navController, onThemeUpdated)
         }
         composable(NavigationItems.Post.route) {
             Post()

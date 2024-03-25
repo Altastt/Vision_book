@@ -2,10 +2,12 @@
     <string name="app_name" translatable="false">VisionBook</string>
     <string name="search">Поиск…</string>
     <string name="topbar_agitation">Начнем творить вместе с ИИ?</string>
+
     <string name="genre">Жанр</string>
     <string name="author">Автор книги</string>
     <string name="name">Название</string>
     <string name="post_text">Текст</string>
+
     <string name="theme">Цветовая тема</string>
     <string name="profile_settings">Настройки профиля</string>
     <string name="notification">Уведомления</string>
@@ -14,14 +16,18 @@
     <string name="faq" translatable="false">FAQ</string>
     <string name="exit_profile">Выход из профиля</string>
 
-
     <string name="permission_canceled">Разрешение отклонено</string>
-    <string name="permission_canceled_request">Пожалуйста, добавьте разрешение вручную: \n(Настройки -> Приложения -> Диспетчер прав)</string>
+    <string name="permission_canceled_request">Пожалуйста, добавьте разрешение вручную: (Настройки -> Приложения ->
+        Диспетчер прав)
+    </string>
 
     <string name="premaincamera_newbook">Новая книга?</string>
-    <string name="premaincamera_newbook_text">Выберите книгу из списка \nили введите свою</string>
+    <string name="premaincamera_newbook_text">Выберите книгу из списка или введите свою</string>
     <string name="premaincamera_newbook_yes">Да</string>
     <string name="premaincamera_newbook_no">Нет</string>
     <string name="premaincamera_newbook_continue">Продолжить</string>
     <string name="premaincamera_newbook_back">Назад</string>
+
+    <string name="bookmarks">Избранное</string>
+
 </resources>

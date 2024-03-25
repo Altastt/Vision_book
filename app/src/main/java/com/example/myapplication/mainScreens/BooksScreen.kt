@@ -1,14 +1,15 @@
 package com.example.myapplication.mainScreens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -28,16 +29,19 @@ fun BooksScreen() {
         }
         items(Books.booksList) { book ->
             BooksScreenItems(book)
-            HorizontalDivider(modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 20.dp, end = 20.dp).
-                clip(RoundedCornerShape(50)
-                ),
+            HorizontalDivider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp).clip(
+                        RoundedCornerShape(50)
+                    ),
                 thickness = 2.dp,
-                color = MaterialTheme.colorScheme.secondary)
+                color = MaterialTheme.colorScheme.secondary
+            )
         }
     }
 }
+
 object Books {
     val booksList = List(20) {
         val randomIndex = Random.nextInt(DataBooksScreen.imagesList.size)

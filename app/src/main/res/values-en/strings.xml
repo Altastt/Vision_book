@@ -2,18 +2,22 @@
 <resources>
     <string name="search">Search…</string>
     <string name="topbar_agitation">Let\'s start creating with AI?</string>
+
     <string name="genre">Genre</string>
     <string name="author">Author</string>
     <string name="name">Name</string>
     <string name="post_text">Text</string>
+
     <string name="theme">Color theme</string>
     <string name="profile_settings">Profile settings</string>
     <string name="notification">Notification</string>
     <string name="security">Security</string>
     <string name="language">Language</string>
     <string name="exit_profile">Exit profile</string>
+
     <string name="permission_canceled">Permission denied</string>
     <string name="permission_canceled_request">Please add permission manually: \n(Settings -> Apps -> Permission Manager)</string>
+
     <string name="premaincamera_newbook">New book?</string>
     <string name="premaincamera_newbook_text">Select a book from the list \nor enter your own</string>
     <string name="premaincamera_newbook_yes">Yes</string>
@@ -21,5 +25,6 @@
     <string name="premaincamera_newbook_continue">Continue</string>
     <string name="premaincamera_newbook_back">Back</string>
 
+    <string name="bookmarks">Favorites</string>
 
 </resources>

@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.myapplication.R
@@ -21,6 +20,7 @@ import com.example.myapplication.itemsOfScreen.ButtonCaptureImage
 import com.example.myapplication.models.FaceAnalyser
 import java.io.File
 import java.util.concurrent.ExecutionException
+import java.util.concurrent.Executor
 
 @Composable
 fun BookCameraPreview(
@@ -29,14 +29,14 @@ fun BookCameraPreview(
     context: Context,
     lifecycleOwner: LifecycleOwner,
     outputDirectory: File,
-    onMediaCaptured: (Uri?) -> Unit
-) {
+    onMediaCaptured: (Uri?) -> Unit,
+    camera: Camera?,
+    executor: Executor,
+    ) {
     var imageCapture: ImageCapture? by remember { mutableStateOf(null) }
     var preview by remember { mutableStateOf<Preview?>(null) }
-    val camera: Camera? = null
     var flashEnabled by remember { mutableStateOf(false) }
     var flashRes by remember { mutableStateOf(R.drawable.flash_on) }
-    val executor = ContextCompat.getMainExecutor(context)
 
     // Camera Provider
     val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
