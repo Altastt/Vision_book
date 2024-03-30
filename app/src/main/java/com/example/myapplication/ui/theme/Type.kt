@@ -60,4 +60,10 @@ val Typography = Typography(
         fontSize = 20.sp
     ),
 
+    displayLarge = TextStyle(
+        fontFamily = sourceSans,
+        fontWeight = FontWeight.Bold,
+        fontSize = 32.sp
+    ),
+
 )

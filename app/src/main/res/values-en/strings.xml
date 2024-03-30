@@ -27,4 +27,18 @@
 
     <string name="bookmarks">Favorites</string>
 
+    <string name="sign_in_title">Login to your account</string>
+    <string name="sign_in_password">Password</string>
+    <string name="sign_in_forgotpass">Forgot password?</string>
+    <string name="sign_in_button">Login</string>
+    <string name="sign_in_text_to_signup">Don\'t have an account yet?</string>
+    <string name="sign_in_tb_to_signup">Create</string>
+    <string name="sign_in_retrypassword">Retry password</string>
+    <string name="sign_up_title">Create an account</string>
+    <string name="sign_up_confidence">I agree to the privacy policy terms</string>
+    <string name="forgot_title">Password recovery</string>
+    <string name="forgot_text">Enter the email to which you will receive a link to reset your password</string>
+    <string name="forgot_button">Restore</string>
+
+
 </resources>

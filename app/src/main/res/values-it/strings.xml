@@ -28,4 +28,19 @@
     <string name="premaincamera_newbook_back">Indietro</string>
 
     <string name="bookmarks">Preferiti</string>
+
+    <string name="sign_in_title">Accedi al tuo account</string>
+    <string name="sign_in_password">Password</string>
+    <string name="sign_in_forgotpass">Password dimenticata?</string>
+    <string name="sign_in_button">Accedi</string>
+    <string name="sign_in_text_to_signup">Non hai ancora un account?</string>
+    <string name="sign_in_tb_to_signup">Creare</string>
+    <string name="sign_in_retrypassword">Ripeti la password</string>
+    <string name="sign_up_title">Creare un account</string>
+    <string name="sign_up_confidence">Accetto i termini dell\'informativa sulla privacy</string>
+    <string name="forgot_title">Recupero password</string>
+    <string name="forgot_text">Inserisci l\'email alla quale riceverai un link per reimpostare la tua password</string>
+    <string name="forgot_button">Ristabilire</string>
+
+
 </resources>

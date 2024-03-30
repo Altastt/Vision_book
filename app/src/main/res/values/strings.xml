@@ -30,4 +30,20 @@
 
     <string name="bookmarks">Избранное</string>
 
+    <string name="sign_in_title">Войдите в аккаунт</string>
+    <string name="sign_in_email" translatable="false">Email</string>
+    <string name="sign_in_password">Пароль</string>
+    <string name="sign_in_retrypassword">Повторите пароль</string>
+    <string name="sign_in_forgotpass">Забыли пароль?</string>
+    <string name="sign_in_button">Войти</string>
+    <string name="sign_in_text_to_signup">У вас еще нет аккаунта?</string>
+    <string name="sign_in_tb_to_signup">Создать</string>
+
+    <string name="sign_up_title">Создайте аккаунт</string>
+    <string name="sign_up_confidence">Я согласен с условиями политики конфиденциальности</string>
+
+    <string name="forgot_title">Восстановление пароля</string>
+    <string name="forgot_text">Укажите почту, на которую вам придет ссылка для восстановления пароля</string>
+    <string name="forgot_button">Восстановить</string>
+
 </resources>
