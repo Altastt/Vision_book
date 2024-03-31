@@ -3,17 +3,16 @@ package com.example.myapplication.view.camerasBookNProfile.secondCameraScreens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.R
-import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.TextFieldCustom
+import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.models.NavigationItems
+import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.TextFieldCustom
 
 @Composable
 fun PreMainCameraScreen(navController: NavController) {
@@ -23,16 +22,12 @@ fun PreMainCameraScreen(navController: NavController) {
     ) {
         var showAdditionalFields by remember { mutableStateOf(false) }
 
-        Text(
+        AutoresizedText(
             modifier = Modifier.padding(bottom = 10.dp),
             text = stringResource(R.string.premaincamera_newbook),
             style = MaterialTheme.typography.headlineLarge
         )
-        Text(
-            text = stringResource(R.string.premaincamera_newbook_text),
-            style = MaterialTheme.typography.headlineMedium,
-            textAlign = TextAlign.Center
-        )
+
         Row(
             modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -41,8 +36,8 @@ fun PreMainCameraScreen(navController: NavController) {
             Button(
                 onClick = { navController.navigate(NavigationItems.Books.route) }
             ) {
-                Text(
-                    text = stringResource(R.string.premaincamera_newbook_no),
+                AutoresizedText(
+                    text = stringResource(R.string.premaincamera_newbook_choose),
                     style = MaterialTheme.typography.titleMedium
                 )
             }
@@ -52,8 +47,8 @@ fun PreMainCameraScreen(navController: NavController) {
                     showAdditionalFields = true
                 }
             ) {
-                Text(
-                    text = stringResource(R.string.premaincamera_newbook_yes),
+                AutoresizedText(
+                    text = stringResource(R.string.premaincamera_newbook_bt),
                     style = MaterialTheme.typography.titleMedium
                 )
             }
@@ -76,7 +71,7 @@ fun PreMainCameraScreen(navController: NavController) {
                         showAdditionalFields = false
                     }
                 ) {
-                    Text(
+                    AutoresizedText(
                         text = stringResource(R.string.premaincamera_newbook_continue),
                         style = MaterialTheme.typography.titleMedium
                     )

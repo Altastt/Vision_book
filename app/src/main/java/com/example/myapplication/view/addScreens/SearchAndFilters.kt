@@ -17,7 +17,7 @@ import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.TextFie
 @Composable
 fun SearchAndFilters() {
     var text by remember { mutableStateOf("") }
-    var active by remember { mutableStateOf(false) }
+    var active by remember { mutableStateOf(true) }
     var items = remember {
         mutableListOf(
             "VisionBook",
@@ -26,7 +26,6 @@ fun SearchAndFilters() {
     }
     SearchBar(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(30),
         query = text,
         onQueryChange = {
             text = it
@@ -41,9 +40,7 @@ fun SearchAndFilters() {
             active = it
         },
         placeholder = {
-            Text(stringResource(R.string.search),
-                style = MaterialTheme.typography.titleMedium)
-
+            Text(stringResource(R.string.search))
         },
         trailingIcon = {
             if (active) {
@@ -67,7 +64,7 @@ fun SearchAndFilters() {
                 modifier = Modifier.padding(14.dp)
             ) {
                 Icon(painter = painterResource(R.drawable.history), "History",
-                    modifier = Modifier.padding(end = 10.dp))
+                    modifier = Modifier.padding(end = 10.dp).size(30.dp))
                 Text(text = it)
             }
         }

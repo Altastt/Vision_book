@@ -6,7 +6,9 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -19,8 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.R
-import com.example.myapplication.view.addScreens.SearchAndFilters
 import com.example.myapplication.ui.theme.sourceSans
+import com.example.myapplication.viewmodels.SearchAndFiltersVM
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,21 +30,22 @@ import com.example.myapplication.ui.theme.sourceSans
 fun AnimatedTopNavigationBar(
     navController: NavController,
     topAppBarState: MutableState<Boolean>,
-    scrollBehavior: TopAppBarScrollBehavior
+    scrollBehavior: TopAppBarScrollBehavior,
+    viewModel: SearchAndFiltersVM
 ) {
     AnimatedVisibility(
         visible = topAppBarState.value,
         enter = slideInVertically(initialOffsetY = { -it }),
         exit = slideOutVertically(targetOffsetY = { -it })
     ) {
-        TopBar(navController, scrollBehavior)
+        TopBar(navController, scrollBehavior, viewModel)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint
 @Composable
-fun TopBar(navController: NavController, scrollBehavior: TopAppBarScrollBehavior) {
+fun TopBar(navController: NavController, scrollBehavior: TopAppBarScrollBehavior, viewModel: SearchAndFiltersVM) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val gradientColors = listOf(Color(0xFFEC723D), Color(0xFFE9A986), Color(0xFFEFEBE7))
     val title: String = when (navBackStackEntry?.destination?.route ?: "home") {
@@ -69,15 +72,12 @@ fun TopBar(navController: NavController, scrollBehavior: TopAppBarScrollBehavior
             )
         },
         actions = {
-            var showSearchAndFilters by remember { mutableStateOf(false) }
             IconButton(
-                onClick = { showSearchAndFilters = !showSearchAndFilters }
+                onClick = { viewModel.toggleSearchAndFilters() }
             ) {
                 Icon(painter = painterResource(R.drawable.search), "searchTopBar")
             }
-            if (showSearchAndFilters) {
-                SearchAndFilters()
-            }
+
         },
         scrollBehavior = scrollBehavior
     )

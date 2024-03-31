@@ -21,6 +21,7 @@ import coil.compose.AsyncImage
 import com.example.myapplication.R
 import com.example.myapplication.data.DataBooksScreen
 import com.example.myapplication.data.DataPostScreen
+import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.models.NoRippleInteractionSource
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -76,9 +77,9 @@ fun Post(){
                     AsyncImage(model = PostElement.avatar, "Avatar",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.size(70.dp).clip(CircleShape))
-                    Text(
+                    AutoresizedText(
                         PostElement.nickname,
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.labelMedium
                     )
                     var checked by remember {
                         mutableStateOf(false)
@@ -100,16 +101,16 @@ fun Post(){
                         )
                     }
                 }
-                Text("${stringResource(R.string.author)}: ${PostElement.authorofBook}",
+                AutoresizedText("${stringResource(R.string.author)}: ${PostElement.authorofBook}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
-                Text("${stringResource(R.string.name)}: ${PostElement.nameBook}",
+                AutoresizedText("${stringResource(R.string.name)}: ${PostElement.nameBook}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
-                Text("${stringResource(R.string.genre)}: ${PostElement.genreBook}",
+                AutoresizedText("${stringResource(R.string.genre)}: ${PostElement.genreBook}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier =  Modifier.padding(start = 8.dp, bottom = 40.dp))
-                Text("${stringResource(R.string.post_text)}:",
+                AutoresizedText("${stringResource(R.string.post_text)}:",
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(start = 8.dp, bottom = 26.dp))
                 Text("     ${PostElement.text}",

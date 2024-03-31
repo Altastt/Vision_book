@@ -11,6 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
+import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.ui.theme.sourceSans
 
 @Composable
@@ -21,7 +22,6 @@ fun TextFieldCustom (placeholder: String) {
         singleLine = true,
         onValueChange = { newText -> value.value = newText },
         shape = RoundedCornerShape(percent = 30),
-        textStyle = MaterialTheme.typography.titleMedium,
         trailingIcon = {
             IconButton(onClick = { value.value = "" }) {
                 Icon(
@@ -31,9 +31,8 @@ fun TextFieldCustom (placeholder: String) {
             }
         },
         placeholder = {
-            Text(
+            AutoresizedText(
                 placeholder,
-                style = MaterialTheme.typography.titleMedium
             )
         },
         // убираю нижнее подчеркивание

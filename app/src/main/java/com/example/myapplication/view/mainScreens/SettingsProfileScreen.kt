@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.myapplication.R
+import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.models.NavigationItems
 import com.example.myapplication.view.addScreens.PostElement
 
@@ -41,7 +42,7 @@ fun SettingsProfileScreen(navController: NavController, onThemeUpdated: () -> Un
                             .size(65.dp)
                             .clip(CircleShape))
 
-                    Text(
+                    AutoresizedText(
                         PostElement.nickname,
                         modifier = Modifier.padding(start = 50.dp),
                         style = MaterialTheme.typography.labelMedium
@@ -116,7 +117,7 @@ fun MenuButton(iconId: Int, contentDescription: String, text: String, onThemeUpd
                 contentDescription = contentDescription,
                 modifier = Modifier.padding(start = 25.dp).size(35.dp)
             )
-            Text(
+            AutoresizedText(
                 text = text,
                 modifier = Modifier.padding(start = 20.dp),
                 style = MaterialTheme.typography.headlineMedium

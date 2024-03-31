@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.TextFieldCustom
 import com.example.myapplication.view.navigation.AuthScreen
 import com.example.myapplication.view.navigation.GraphRoute
@@ -23,7 +24,7 @@ fun LoginScreen(navController: NavController) {
         modifier = Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
+        AutoresizedText(
             stringResource(R.string.sign_in_title),
             style = MaterialTheme.typography.displayLarge,
             modifier = Modifier.padding(top = 120.dp, bottom = 80.dp)
@@ -48,7 +49,7 @@ fun LoginScreen(navController: NavController) {
             shape = RoundedCornerShape(30),
             modifier = Modifier.width(140.dp).height(70.dp)
         ) {
-            Text(
+            AutoresizedText(
                 stringResource(R.string.sign_in_button),
                 style = MaterialTheme.typography.labelMedium
             )
@@ -57,7 +58,7 @@ fun LoginScreen(navController: NavController) {
         Row (
             modifier = Modifier.padding(top = 40.dp),
         ) {
-            Text(
+            AutoresizedText(
                 stringResource(R.string.sign_in_text_to_signup),
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(end = 5.dp)

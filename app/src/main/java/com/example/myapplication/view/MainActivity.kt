@@ -12,11 +12,14 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.view.navigation.MainNavigation
 import com.example.myapplication.view.navigation.RootNavigation
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.view.addScreens.SearchAndFilters
+import com.example.myapplication.viewmodels.SearchAndFiltersVM
 
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +28,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             var darkTheme by remember { mutableStateOf(false) }
             MyApplicationTheme (darkTheme = darkTheme) {
-               // MainScreen(onThemeUpdated = { darkTheme = !darkTheme })
                 RootNavigation(navController = rememberNavController(), onThemeUpdated = { darkTheme = !darkTheme })
             }
         }
@@ -42,7 +44,7 @@ fun MainScreen(onThemeUpdated: () -> Unit) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val topBarState = rememberSaveable { (mutableStateOf(true)) }
     val bottomBarState = rememberSaveable { mutableStateOf(true) }
-
+    val viewModel: SearchAndFiltersVM = viewModel()
 
     when (navBackStackEntry?.destination?.route) {
         "home" -> {
@@ -82,9 +84,13 @@ fun MainScreen(onThemeUpdated: () -> Unit) {
     }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { AnimatedTopNavigationBar(navController, topBarState, scrollBehavior) },
+        topBar = { AnimatedTopNavigationBar(navController, topBarState, scrollBehavior, viewModel) },
         content = {
-            MainNavigation(navController, onThemeUpdated)
+            if (viewModel.showSearchAndFilters.value) {
+                SearchAndFilters()
+            } else {
+                MainNavigation(navController, onThemeUpdated)
+            }
         },
         bottomBar = { AnimatedBottomNavigationBar(navController, bottomBarState) },
     )

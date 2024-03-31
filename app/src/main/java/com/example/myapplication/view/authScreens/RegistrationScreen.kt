@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.BackButton
 import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.TextFieldCustom
 import com.example.myapplication.view.navigation.GraphRoute
@@ -31,7 +32,7 @@ fun RegistrationScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth().padding(bottom = 80.dp)
         ) { BackButton(navController) }
 
-        Text(
+        AutoresizedText(
             stringResource(R.string.sign_up_title),
             style = MaterialTheme.typography.displayLarge,
             modifier = Modifier.padding(bottom = 110.dp)
@@ -64,7 +65,7 @@ fun RegistrationScreen(navController: NavController) {
             modifier = Modifier.width(140.dp).height(80.dp).padding(top = 30.dp),
 
         ) {
-            Text(stringResource(R.string.sign_in_tb_to_signup),
+            AutoresizedText(stringResource(R.string.sign_in_tb_to_signup),
                 style = MaterialTheme.typography.labelMedium)
         }
 

@@ -22,9 +22,8 @@
     </string>
 
     <string name="premaincamera_newbook">Новая книга?</string>
-    <string name="premaincamera_newbook_text">Выберите книгу из списка или введите свою</string>
-    <string name="premaincamera_newbook_yes">Да</string>
-    <string name="premaincamera_newbook_no">Нет</string>
+    <string name="premaincamera_newbook_choose">Выбрать книгу</string>
+    <string name="premaincamera_newbook_bt">Ввести свою</string>
     <string name="premaincamera_newbook_continue">Продолжить</string>
     <string name="premaincamera_newbook_back">Назад</string>
 

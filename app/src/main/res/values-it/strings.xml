@@ -21,11 +21,11 @@
     </string>
 
     <string name="premaincamera_newbook">Un nuovo libro?</string>
-    <string name="premaincamera_newbook_text">Seleziona un libro dall\'elenco \no inserisci il tuo</string>
-    <string name="premaincamera_newbook_yes">SÌ</string>
-    <string name="premaincamera_newbook_no">NO</string>
+    <string name="premaincamera_newbook_bt">Inserisci il tuo</string>
     <string name="premaincamera_newbook_continue">Continua</string>
     <string name="premaincamera_newbook_back">Indietro</string>
+    <string name="premaincamera_newbook_choose">Scegli un libro</string>
+
 
     <string name="bookmarks">Preferiti</string>
 
@@ -41,6 +41,7 @@
     <string name="forgot_title">Recupero password</string>
     <string name="forgot_text">Inserisci l\'email alla quale riceverai un link per reimpostare la tua password</string>
     <string name="forgot_button">Ristabilire</string>
+
 
 
 </resources>

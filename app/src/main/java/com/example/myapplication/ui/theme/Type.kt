@@ -9,8 +9,8 @@ import androidx.compose.ui.unit.sp
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = sourceSans,
-        fontWeight = FontWeight.Bold,
-        fontSize = 25.sp
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp
     ),
     bodyMedium = TextStyle(
         fontFamily = sourceSans,
@@ -22,17 +22,22 @@ val Typography = Typography(
         fontFamily = sourceSans,
         fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Italic,
-        fontSize = 16.sp
+        fontSize = 15.sp
     ),
     labelLarge = TextStyle(
         fontFamily = sourceSans,
         fontWeight = FontWeight.Bold,
-        fontSize = 27.sp
+        fontSize = 25.sp
     ),
     labelMedium = TextStyle(
         fontFamily = sourceSans,
         fontWeight = FontWeight.Bold,
         fontSize = 22.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = sourceSans,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp
     ),
     titleLarge = TextStyle(
         fontFamily = sourceSans,
@@ -42,7 +47,7 @@ val Typography = Typography(
     titleMedium = TextStyle(
         fontFamily = sourceSans,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 18.sp
+        fontSize = 17.sp
     ),
     titleSmall = TextStyle(
         fontFamily = sourceSans,
@@ -59,11 +64,28 @@ val Typography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 20.sp
     ),
-
+    // dont use
+    headlineSmall = TextStyle(
+        fontFamily = sourceSans,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 18.sp
+    ),
+    // use
     displayLarge = TextStyle(
         fontFamily = sourceSans,
         fontWeight = FontWeight.Bold,
         fontSize = 32.sp
+    ),
+    // dont use
+    displayMedium = TextStyle(
+        fontFamily = sourceSans,
+        fontWeight = FontWeight.Bold,
+        fontSize = 25.sp
+    ),
+    displaySmall = TextStyle(
+        fontFamily = sourceSans,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
     ),
 
 )

@@ -19,11 +19,10 @@
     <string name="permission_canceled_request">Please add permission manually: \n(Settings -> Apps -> Permission Manager)</string>
 
     <string name="premaincamera_newbook">New book?</string>
-    <string name="premaincamera_newbook_text">Select a book from the list \nor enter your own</string>
-    <string name="premaincamera_newbook_yes">Yes</string>
-    <string name="premaincamera_newbook_no">No</string>
+    <string name="premaincamera_newbook_bt">Enter your own</string>
     <string name="premaincamera_newbook_continue">Continue</string>
     <string name="premaincamera_newbook_back">Back</string>
+    <string name="premaincamera_newbook_choose">Choose a book</string>
 
     <string name="bookmarks">Favorites</string>
 

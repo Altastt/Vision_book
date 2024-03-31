@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -18,10 +17,17 @@ import com.example.myapplication.R
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BookmarksScreen() {
-    val tabItems = listOf(stringResource(R.string.bookmarks),"Скульптуринг","Скульптуринг","Скульптуринг","Скульптуринг","Ландшафты")
+    val tabItems = listOf(
+        stringResource(R.string.bookmarks),
+        "Скульптуринг",
+        "Скульптуринг",
+        "Скульптуринг",
+        "Скульптуринг",
+        "Ландшафты"
+    )
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val pagerState = rememberPagerState { tabItems.size }
-    LaunchedEffect(selectedTabIndex){
+    LaunchedEffect(selectedTabIndex) {
         pagerState.animateScrollToPage(selectedTabIndex)
     }
     LaunchedEffect(pagerState.currentPage, pagerState.isScrollInProgress) {
@@ -33,12 +39,12 @@ fun BookmarksScreen() {
         Spacer(modifier = Modifier.padding(top = 60.dp))
         ScrollableTabRow(selectedTabIndex = selectedTabIndex) {
             tabItems.forEachIndexed() { index, item ->
-                Tab(selected = index+1 == selectedTabIndex,
+                Tab(selected = index + 1 == selectedTabIndex,
                     onClick = {
                         selectedTabIndex = index
                     },
                     text = {
-                        Text(item, style = MaterialTheme.typography.titleSmall)
+                        Text(item)
                     }
                 )
             }
@@ -46,14 +52,13 @@ fun BookmarksScreen() {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxWidth().weight(1f)
-        ) {index ->
+        ) { index ->
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
-            ){
+            ) {
                 Text(tabItems[index])
             }
-
         }
     }
 }
