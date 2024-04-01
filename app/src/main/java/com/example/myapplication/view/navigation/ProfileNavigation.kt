@@ -13,7 +13,7 @@ fun NavGraphBuilder.profileNavigation(navController: NavHostController){
         startDestination = ProfileScreen.Profile.route
     ){
         composable(ProfileScreen.Profile.route){
-            ProfileScreen()
+            ProfileScreen(navController)
         }
         composable(ProfileScreen.Subs.route){
             SubsScreen()

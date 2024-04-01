@@ -40,4 +40,9 @@
     <string name="forgot_button">Restore</string>
 
 
+    <string name="user_subs_bt">Subscribe</string>
+    <string name="user_subscribe">Subscriptions</string>
+    <string name="user_subscribers">Subscribers</string>
+
+
 </resources>

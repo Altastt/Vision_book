@@ -31,7 +31,7 @@ fun MainNavigation(navController: NavHostController, onThemeUpdated: () -> Unit)
             SettingsProfileScreen(navController, onThemeUpdated)
         }
         composable(NavigationItems.Post.route) {
-            Post()
+                Post()
         }
 
         profileNavigation(navController)

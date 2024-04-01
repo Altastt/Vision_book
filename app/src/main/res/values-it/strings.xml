@@ -43,5 +43,9 @@
     <string name="forgot_button">Ristabilire</string>
 
 
+    <string name="user_subs_bt">Sottoscrivere</string>
+    <string name="user_subscribe">Sottoscrizioni</string>
+    <string name="user_subscribers">Sottoscrittori</string>
+
 
 </resources>

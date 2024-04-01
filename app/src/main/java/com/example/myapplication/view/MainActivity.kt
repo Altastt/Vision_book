@@ -87,6 +87,7 @@ fun MainScreen(onThemeUpdated: () -> Unit) {
         topBar = { AnimatedTopNavigationBar(navController, topBarState, scrollBehavior, viewModel) },
         content = {
             if (viewModel.showSearchAndFilters.value) {
+                MainNavigation(navController, onThemeUpdated)
                 SearchAndFilters()
             } else {
                 MainNavigation(navController, onThemeUpdated)

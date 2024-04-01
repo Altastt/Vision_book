@@ -47,7 +47,7 @@ fun AnimatedTopNavigationBar(
 @Composable
 fun TopBar(navController: NavController, scrollBehavior: TopAppBarScrollBehavior, viewModel: SearchAndFiltersVM) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val gradientColors = listOf(Color(0xFFEC723D), Color(0xFFE9A986), Color(0xFFEFEBE7))
+   // val gradientColors = listOf(Color(0xFFEC723D), Color(0xFFE9A986), Color(0xFFEFEBE7))
     val title: String = when (navBackStackEntry?.destination?.route ?: "home") {
         "home" -> "Home"
         "books" -> "Books"
@@ -65,9 +65,9 @@ fun TopBar(navController: NavController, scrollBehavior: TopAppBarScrollBehavior
                     fontFamily = sourceSans,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp,
-                    brush = Brush.linearGradient(
-                        colors = gradientColors
-                    )
+                  //  brush = Brush.linearGradient(
+                        //colors = gradientColors
+                    //)
                 )
             )
         },

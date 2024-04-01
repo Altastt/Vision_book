@@ -45,4 +45,9 @@
     <string name="forgot_text">Укажите почту, на которую вам придет ссылка для восстановления пароля</string>
     <string name="forgot_button">Восстановить</string>
 
+
+    <string name="user_subs_bt">Подписаться</string>
+    <string name="user_subscribe">Подписки</string>
+    <string name="user_subscribers">Подписчики</string>
+
 </resources>

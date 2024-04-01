@@ -1,7 +1,5 @@
 package com.example.myapplication.view.addScreens
 
-import android.graphics.Bitmap
-import android.media.MediaMetadataRetriever
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,54 +15,55 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.graphics.drawable.toDrawable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.myapplication.R
-import com.example.myapplication.data.DataBooksScreen
-import com.example.myapplication.data.DataPostScreen
+import com.example.myapplication.data.DataPost
 import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.models.NoRippleInteractionSource
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.example.myapplication.models.PostScreenVMFactory
+import com.example.myapplication.viewmodels.BooksScreenVM
+import com.example.myapplication.viewmodels.ExoPlayerVM
+import com.example.myapplication.viewmodels.PostScreenVM
+import com.example.myapplication.viewmodels.ProfileScreenVM
 import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.util.Util
-import kotlin.random.Random
 
 
 @Composable
-fun Post(){
+fun Post(
+    playerViewModel: ExoPlayerVM = viewModel(),
+){
+    val userViewModel = viewModel<ProfileScreenVM>()
+    val bookViewModel = viewModel<BooksScreenVM>()
+    val postViewModel: PostScreenVM = viewModel<PostScreenVM>(factory = PostScreenVMFactory(userViewModel, bookViewModel))
+
+    val context = LocalContext.current
+    val postItem = postViewModel.getPostItem()
+
+
     Box(modifier = Modifier.fillMaxSize()) {
-        val mContext = LocalContext.current
+        val (exoPlayer, bitmap) = remember { playerViewModel.initializePlayer(postItem.videoUrl, context) }
 
-        val videoUrl = "https://static.videezy.com/system/resources/previews/000/054/572/original/R-10.mp4"
-        val retriever = MediaMetadataRetriever()
-        retriever.setDataSource(videoUrl)
-
-        val bitmap: Bitmap? = retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST)
-        val exoPlayer = remember(mContext) {
-            ExoPlayer.Builder(mContext).build().apply {
-                val dataSourceFactory = DefaultDataSourceFactory(mContext, Util.getUserAgent(mContext, mContext.packageName))
-                val mediaItem = MediaItem.fromUri(videoUrl)
-                val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(mediaItem)
-                setMediaSource(mediaSource)
-                prepare()
+        DisposableEffect(context) {
+            onDispose {
+                playerViewModel.releasePlayer()
             }
         }
 
-        AndroidView(modifier = Modifier.fillMaxWidth(),
+        AndroidView(
+            modifier = Modifier.fillMaxWidth(),
             factory = { context ->
-            PlayerView(context).apply {
-                player = exoPlayer
-                useController = true
-                // Скрываем элементы контроллера по умолчанию
-                controllerShowTimeoutMs = 0
-                hideController() // Скрываем контроллер при старте
-                useArtwork = true // Включаем отображение превью-изображения
-                defaultArtwork = bitmap?.toDrawable(context.resources)
-
+                PlayerView(context).apply {
+                    player = exoPlayer
+                    useController = true
+                    controllerShowTimeoutMs = 0
+                    hideController()
+                    useArtwork = true
+                    defaultArtwork = bitmap?.toDrawable(context.resources)
+                }
             }
-        })
+        )
+
 
         Surface(modifier = Modifier.fillMaxWidth().padding(top = 200.dp),
             shape = RoundedCornerShape(percent = 10)
@@ -74,11 +73,11 @@ fun Post(){
                 Row(modifier = Modifier.fillMaxWidth().padding(bottom = 30.dp, top = 10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically) {
-                    AsyncImage(model = PostElement.avatar, "Avatar",
+                    AsyncImage(model = postItem.avatarUrl, "Avatar",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.size(70.dp).clip(CircleShape))
                     AutoresizedText(
-                        PostElement.nickname,
+                        postItem.username,
                         style = MaterialTheme.typography.labelMedium
                     )
                     var checked by remember {
@@ -101,33 +100,23 @@ fun Post(){
                         )
                     }
                 }
-                AutoresizedText("${stringResource(R.string.author)}: ${PostElement.authorofBook}",
+                AutoresizedText("${stringResource(R.string.author)}: ${postItem.bookAuthor}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
-                AutoresizedText("${stringResource(R.string.name)}: ${PostElement.nameBook}",
+                AutoresizedText("${stringResource(R.string.name)}: ${postItem.bookTitle}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp, bottom = 7.dp))
-                AutoresizedText("${stringResource(R.string.genre)}: ${PostElement.genreBook}",
+                AutoresizedText("${stringResource(R.string.genre)}: ${postItem.bookGenre}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier =  Modifier.padding(start = 8.dp, bottom = 40.dp))
                 AutoresizedText("${stringResource(R.string.post_text)}:",
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(start = 8.dp, bottom = 26.dp))
-                Text("     ${PostElement.text}",
+                Text("     ${postItem.bookText}",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(start = 8.dp))
             }
         }
     }
-}
-
-object PostElement{
-    val randomIndex = Random.nextInt(DataBooksScreen.imagesList.size)
-    val nickname = DataPostScreen.nicknameList[randomIndex]
-    val text = DataPostScreen.textList[randomIndex]
-    val avatar = DataPostScreen.avatarList[randomIndex]
-    val authorofBook = DataBooksScreen.authorsList[randomIndex]
-    val nameBook = DataBooksScreen.nameList[randomIndex]
-    val genreBook = DataBooksScreen.genreList[randomIndex]
 }
 

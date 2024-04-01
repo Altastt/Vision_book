@@ -37,7 +37,7 @@ fun BooksScreenItems(book: BooksItem) {
                 })
             Column(modifier = Modifier.padding(start = 23.dp, top = 10.dp)) {
                 AutoresizedText(
-                    "«${book.name}»",
+                    "«${book.title}»",
                     style = MaterialTheme.typography.titleMedium
                 )
                 AutoresizedText(

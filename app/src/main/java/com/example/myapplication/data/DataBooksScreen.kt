@@ -2,25 +2,38 @@ package com.example.myapplication.data
 
 data class BooksItem(
     var id: String,
-    var title: String,
+    var name: String,
     var url: String,
     var author: String,
-    var name: String,
+    var title: String,
     var genre: String
 )
 
 object DataBooksScreen{
-    val imagesList = listOf(
-        "https://i.pinimg.com/564x/59/a5/34/59a5344b6dd9eb7089d78e7eefeee9d8.jpg",
-        "https://i.pinimg.com/564x/2e/5f/b0/2e5fb01fc7feeb16519ac5cd629ca28f.jpg",
-        "https://i.pinimg.com/564x/f4/c7/26/f4c72614d34766e5fbd0e84424fb7fcd.jpg",
-        "https://i.pinimg.com/564x/a8/94/7c/a8947cf36b556a2fd1c7a15c85a38d30.jpg",
-        "https://i.pinimg.com/564x/fa/9a/21/fa9a21ad77a57e0e5d8df3fa3616bff8.jpg",
-        "https://i.pinimg.com/564x/42/26/c8/4226c886bdd6dbac268de6a6fd9a99a6.jpg",
-        "https://i.pinimg.com/564x/47/f5/f0/47f5f0e0c0f96991ba08d42026e3bbe4.jpg",
-        "https://i.pinimg.com/564x/1b/4d/12/1b4d120ec0a557649cc4789727270e68.jpg",
-        "https://i.pinimg.com/564x/e5/d8/9a/e5d89a0ccb9a42cff7dabd9f030449bb.jpg",
-        "https://i.pinimg.com/564x/e6/ca/6b/e6ca6b20ce7dc8c2fa2a9145eb6391e4.jpg"
+    val imageList = listOf(
+        "https://i.pinimg.com/564x/03/fb/59/03fb5935622963540a802712f8313304.jpg",
+        "https://i.pinimg.com/564x/f8/e8/8b/f8e88b0bc000e264c79e5ceb28a68e78.jpg",
+        "https://i.pinimg.com/564x/3e/98/1a/3e981ab9dcfedcf8f73b1366b6cc4a4b.jpg",
+        "https://i.pinimg.com/564x/cc/6a/53/cc6a538523054a820cd14bf9808d5b09.jpg",
+        "https://i.pinimg.com/564x/4e/15/ad/4e15ad09fcd43aaed6904fbbcf786c44.jpg",
+        "https://i.pinimg.com/564x/f4/09/c5/f409c5276e42c7c15204bce643948b0b.jpg",
+        "https://i.pinimg.com/564x/75/f6/dc/75f6dcb904a47f31aebc14046f4b2dd9.jpg",
+        "https://i.pinimg.com/564x/11/44/23/11442394eda50dcc6d8dc7fa4eed8807.jpg",
+        "https://i.pinimg.com/564x/e7/09/ec/e709ecf5f772dcd78f01dcad16111a32.jpg",
+        "https://i.pinimg.com/564x/fb/e9/72/fbe9724232c791a697d48458854bee03.jpg"
+    )
+
+    val coverList = listOf(
+        "https://iv-obdu.ru/images/galery/2020/chz_vbun-05.jpg",
+        "https://cdn1.ozone.ru/s3/multimedia-p/6046527865.jpg",
+        "https://cv9.litres.ru/pub/c/cover_max1500/26380699.jpg",
+        "https://lotsofbooks.be/upload/iblock/b2a/b2a2f29f83aef8aa380fb6ca624556c2.jpg",
+        "https://polinka.net/wp-content/uploads/2017/09/2017-09-19_232007.jpg",
+        "https://cdn1.ozone.ru/multimedia/c750/1014025948.jpg",
+        "https://content.img-gorod.ru/nomenclature/24/798/2479814.jpg",
+        "https://www.litlib.net/bk/7440/08-2009/cover.jpg",
+        "https://www.1c-interes.ru/images/2024/02/Bezlikayakoroleva_big.jpg",
+        "https://ia802807.us.archive.org/34/items/IMG0020_201809/IMG_0016.jpg"
     )
     val authorsList = listOf(
         "Агата Кристи",
@@ -34,7 +47,7 @@ object DataBooksScreen{
         "Иван Тургенев",
         "Николай Гоголь",
     )
-    val nameList = listOf(
+    val titleList = listOf(
         "Антоновские яблоки",
         "Мертвые души",
         "Вий",

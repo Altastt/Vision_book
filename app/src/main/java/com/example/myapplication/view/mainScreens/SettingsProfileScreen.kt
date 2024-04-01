@@ -12,21 +12,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.myapplication.R
+import com.example.myapplication.data.MenuItem
 import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.models.NavigationItems
-import com.example.myapplication.view.addScreens.PostElement
+import com.example.myapplication.view.navigation.GraphRoute
+import com.example.myapplication.viewmodels.ProfileScreenVM
 
 @Composable
-fun SettingsProfileScreen(navController: NavController, onThemeUpdated: () -> Unit) {
+fun SettingsProfileScreen(navController: NavController, onThemeUpdated: () -> Unit, viewModel: ProfileScreenVM = viewModel()) {
+    val profileList = viewModel.profileList.value
+    val firstProfile = profileList.firstOrNull()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(start = 22.dp, end = 22.dp),
     ) {
-            Button(onClick = {},
+            Button(onClick = { navController.navigate(GraphRoute.PROFILE) },
                 modifier = Modifier.fillMaxWidth()
                     .padding(top = 20.dp),
                 elevation = ButtonDefaults.elevatedButtonElevation(0.dp),
@@ -36,17 +41,19 @@ fun SettingsProfileScreen(navController: NavController, onThemeUpdated: () -> Un
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    AsyncImage(model = PostElement.avatar, "Avatar",
+                    AsyncImage(model = firstProfile?.url, "Avatar",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, start = 15.dp)
                             .size(65.dp)
                             .clip(CircleShape))
 
-                    AutoresizedText(
-                        PostElement.nickname,
-                        modifier = Modifier.padding(start = 50.dp),
-                        style = MaterialTheme.typography.labelMedium
-                    )
+                    firstProfile?.nickname?.let {
+                        AutoresizedText(
+                            it,
+                            modifier = Modifier.padding(start = 50.dp),
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                    }
                 }
             }
 
@@ -126,4 +133,3 @@ fun MenuButton(iconId: Int, contentDescription: String, text: String, onThemeUpd
     }
 }
 
-data class MenuItem(val iconId: Int, val contentDescription: String, val text: String)
