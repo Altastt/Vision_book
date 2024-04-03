@@ -38,7 +38,7 @@ fun ForgotScreen(navController: NavController) {
 
         Text(stringResource(R.string.forgot_text),
             style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.padding(start = 20.dp, bottom = 16.dp),
+            modifier = Modifier.padding( bottom = 16.dp),
             textAlign = TextAlign.Center
             )
 

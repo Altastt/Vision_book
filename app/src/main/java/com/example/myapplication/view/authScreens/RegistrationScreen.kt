@@ -45,7 +45,8 @@ fun RegistrationScreen(navController: NavController) {
         TextFieldCustom(stringResource(R.string.sign_in_retrypassword))
 
         Row(
-            modifier = Modifier.padding(start = 30.dp, top = 30.dp)
+            modifier = Modifier.padding(start = 30.dp, top = 30.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
                 checked = checked,

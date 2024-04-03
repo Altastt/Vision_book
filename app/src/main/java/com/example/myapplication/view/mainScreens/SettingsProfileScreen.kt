@@ -1,8 +1,11 @@
 package com.example.myapplication.view.mainScreens
 
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +32,7 @@ fun SettingsProfileScreen(navController: NavController, onThemeUpdated: () -> Un
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 22.dp, end = 22.dp),
+            .padding(start = 22.dp, end = 22.dp)
     ) {
             Button(onClick = { navController.navigate(GraphRoute.PROFILE) },
                 modifier = Modifier.fillMaxWidth()
