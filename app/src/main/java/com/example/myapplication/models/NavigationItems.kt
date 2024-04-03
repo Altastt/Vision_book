@@ -9,5 +9,7 @@ sealed class NavigationItems(var route: String, var icon: Int, var title: String
     object Bookmarks : NavigationItems("bookbarks", R.drawable.bookmark, "Bookmarks")
     object Profile : NavigationItems("profile", R.drawable.profile, "Profile")
     object Post : NavigationItems("post", R.drawable.profile, "Post")
-    object CameraForProfile : NavigationItems("cameraforprofile", R.drawable.profile, "CameraForProfile")
+    object CameraInProfile : NavigationItems("camerainprofile", R.drawable.camera, "CameraInProfile")
+    object CameraInMain : NavigationItems("camerainmain", R.drawable.camera, "CameraInMain")
+    object Gallery : NavigationItems("gallery", R.drawable.camera, "Gallery")
 }

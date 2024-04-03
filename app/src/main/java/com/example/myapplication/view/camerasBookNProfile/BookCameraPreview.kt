@@ -68,8 +68,6 @@ fun BookCameraPreview(
     ) {
     var imageCapture: ImageCapture? by remember { mutableStateOf(null) }
     var preview by remember { mutableStateOf<Preview?>(null) }
-    var flashEnabled by remember { mutableStateOf(false) }
-    var flashRes by remember { mutableStateOf(R.drawable.flash_on) }
 
     // Camera Provider
     val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
@@ -122,39 +120,14 @@ fun BookCameraPreview(
         }
 
         Row (
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(25.dp)
                 .align(Alignment.BottomCenter)
         ) {
-            IconButton(
-                onClick = {
-                    camera?.let {
-                        if (it.cameraInfo.hasFlashUnit()) {
-                            flashEnabled = !flashEnabled
-                            flashRes = if (flashEnabled) R.drawable.flash_off else
-                                R.drawable.flash_on
-                            it.cameraControl.enableTorch(flashEnabled)
-                        }
-                    }
-                }
-            ) {
-                Icon(painter = painterResource(id = flashRes),
-                    contentDescription = "",
-                    modifier = Modifier.size(35.dp))
-            }
             ButtonCaptureImage(context, outputDirectory, onMediaCaptured, imageCapture, executor)
-            IconButton(
-                onClick = {
-
-                }
-            ) {
-                Icon(painter = painterResource(R.drawable.info),
-                    contentDescription = "",
-                    modifier = Modifier.size(35.dp))
-            }
         }
     }
 }

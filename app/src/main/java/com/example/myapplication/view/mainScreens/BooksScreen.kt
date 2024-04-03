@@ -14,11 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.data.BooksItem
-import com.example.myapplication.data.DataBooksScreen
 import com.example.myapplication.view.mainScreens.itemsInLists.BooksScreenItems
 import com.example.myapplication.viewmodels.BooksScreenVM
-import kotlin.random.Random
 
 
 @Composable

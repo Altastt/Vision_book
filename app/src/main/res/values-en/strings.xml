@@ -43,6 +43,9 @@
     <string name="user_subs_bt">Subscribe</string>
     <string name="user_subscribe">Subscriptions</string>
     <string name="user_subscribers">Subscribers</string>
+    <string name="preprofilecamera_text">Adding an avatar to your profile</string>
+    <string name="preprofilecamera_btGallery">Select from gallery</string>
+    <string name="preprofilecamera_btTakephoto">Take photo</string>
 
 
 </resources>

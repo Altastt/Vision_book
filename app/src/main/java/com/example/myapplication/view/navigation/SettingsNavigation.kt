@@ -1,19 +1,18 @@
 package com.example.myapplication.view.navigation
 
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.myapplication.models.NavigationItems
-import com.example.myapplication.view.mainScreens.Camera
+import com.example.myapplication.view.camerasBookNProfile.secondCameraScreens.PreProfileCameraScreen
 import com.example.myapplication.view.settingsScreen.*
 
 fun NavGraphBuilder.settingsNavigation(navController: NavHostController) {
     navigation(
         route = GraphRoute.SETTINGS,
         startDestination = SettingsScreen.ProfileSettings.route
-    ){
+    ) {
         composable(SettingsScreen.ProfileSettings.route) {
             ProfileSettingsScreen()
         }
@@ -31,9 +30,8 @@ fun NavGraphBuilder.settingsNavigation(navController: NavHostController) {
             FAQScreen()
         }
 
-        composable(NavigationItems.CameraForProfile.route) {
-            //  PreProfileCameraScreen(navController)
-            Camera(LocalContext.current, navController)
+        composable(NavigationItems.CameraInProfile.route) {
+            PreProfileCameraScreen(navController)
         }
     }
 }

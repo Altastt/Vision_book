@@ -3,6 +3,7 @@ package com.example.myapplication.view.camerasBookNProfile.secondCameraScreens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,11 +19,12 @@ import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.TextFie
 fun PreMainCameraScreen(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize().padding(top = 30.dp, start = 22.dp, end = 22.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         var showAdditionalFields by remember { mutableStateOf(false) }
 
-        AutoresizedText(
+        Text(
             modifier = Modifier.padding(bottom = 10.dp),
             text = stringResource(R.string.premaincamera_newbook),
             style = MaterialTheme.typography.headlineLarge
@@ -67,7 +69,7 @@ fun PreMainCameraScreen(navController: NavController) {
                 Button(
                     modifier = Modifier.padding(top = 20.dp),
                     onClick = {
-                        navController.navigate(NavigationItems.CameraForProfile.route)
+                        navController.navigate(NavigationItems.Camera.route)
                         showAdditionalFields = false
                     }
                 ) {

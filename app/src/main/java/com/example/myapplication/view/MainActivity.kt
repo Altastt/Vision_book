@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -26,7 +27,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var darkTheme by remember { mutableStateOf(false) }
+            val darkThemeNow = isSystemInDarkTheme()
+            var darkTheme by remember { mutableStateOf(darkThemeNow) }
             MyApplicationTheme (darkTheme = darkTheme) {
                 RootNavigation(navController = rememberNavController(), onThemeUpdated = { darkTheme = !darkTheme })
             }
@@ -39,7 +41,7 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(onThemeUpdated: () -> Unit) {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val topBarState = rememberSaveable { (mutableStateOf(true)) }
@@ -57,9 +59,19 @@ fun MainScreen(onThemeUpdated: () -> Unit) {
             bottomBarState.value = true
         }
 
-        "camera" -> {
+        "camerainprofile" -> {
             topBarState.value = false
             bottomBarState.value = true
+        }
+
+        "camerainmain" -> {
+            topBarState.value = false
+            bottomBarState.value = true
+        }
+
+        "camera" -> {
+            topBarState.value = false
+            bottomBarState.value = false
         }
 
         "bookmarks" -> {

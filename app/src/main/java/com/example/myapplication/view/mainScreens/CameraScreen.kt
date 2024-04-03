@@ -1,6 +1,5 @@
 package com.example.myapplication.view.mainScreens
 
-import com.example.myapplication.view.camerasBookNProfile.CameraBook
 import android.content.Context
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -15,6 +14,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.example.myapplication.models.FileHelper
 import com.example.myapplication.models.checkCameraPermission
+import com.example.myapplication.view.camerasBookNProfile.CameraBook
 import com.example.myapplication.view.camerasBookNProfile.CameraProfile
 
 @Composable
@@ -48,15 +48,15 @@ fun Camera(context: Context, navController: NavController) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (previousRoute == "profile") {
+        if (previousRoute == "camerainprofile") {
             CameraProfile(
                 fileHelper.getDirectory(),
                 navController = navController,
                 context = context,
                 lifecycleOwner = lifecycleOwner,
-                isCameraPermissionGranted = isCameraPermissionGranted)
-        }
-        else {
+                isCameraPermissionGranted = isCameraPermissionGranted
+            )
+        } else {
             CameraBook(
                 fileHelper.getDirectory(),
                 navController = navController,

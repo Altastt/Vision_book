@@ -50,4 +50,9 @@
     <string name="user_subscribe">Подписки</string>
     <string name="user_subscribers">Подписчики</string>
 
+
+    <string name="preprofilecamera_text">Добавление аватара в профиль</string>
+    <string name="preprofilecamera_btGallery">Выбрать из галереи</string>
+    <string name="preprofilecamera_btTakephoto">Сделать фото</string>
+
 </resources>

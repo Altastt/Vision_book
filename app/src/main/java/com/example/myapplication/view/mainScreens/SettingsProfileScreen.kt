@@ -57,7 +57,7 @@ fun SettingsProfileScreen(navController: NavController, onThemeUpdated: () -> Un
                 }
             }
 
-            IconButton(onClick = { navController.navigate(NavigationItems.CameraForProfile.route) },
+            IconButton(onClick = { navController.navigate(NavigationItems.CameraInProfile.route) },
                 modifier = Modifier.padding(end = 15.dp)
                     .size(35.dp)
                     ) {

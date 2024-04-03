@@ -18,9 +18,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.models.FaceAnalyser
 import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.BackButton
 import com.example.myapplication.view.camerasBookNProfile.itemsInCameras.ButtonCaptureImage
-import com.example.myapplication.models.FaceAnalyser
 import com.example.myapplication.view.camerasBookNProfile.secondCameraScreens.CanceledPermissonScreen
 import java.io.File
 import java.util.concurrent.ExecutionException
@@ -33,7 +33,8 @@ fun CameraProfile(
     navController: NavController,
     context: Context,
     lifecycleOwner: LifecycleOwner,
-    isCameraPermissionGranted: MutableState<Boolean>) {
+    isCameraPermissionGranted: MutableState<Boolean>
+) {
     val camera: Camera? = null
     val executor = ContextCompat.getMainExecutor(context)
     if (isCameraPermissionGranted.value) {
@@ -115,7 +116,7 @@ fun ProfileCameraPreview(
             }
         )
 
-        Row (
+        Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
@@ -124,23 +125,14 @@ fun ProfileCameraPreview(
             BackButton(navController = navController)
         }
 
-        Row (
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(25.dp)
                 .align(Alignment.BottomCenter)
         ) {
-            IconButton(
-                onClick = {
-                   // Написать логику для работы с галереей
-                }
-            ) {
-                Icon(painter = painterResource(R.drawable.gallery),
-                    contentDescription = "",
-                    modifier = Modifier.size(35.dp))
-            }
             ButtonCaptureImage(context, outputDirectory, onMediaCaptured, imageCapture, executor)
             IconButton(
                 onClick = {
@@ -157,7 +149,7 @@ fun ProfileCameraPreview(
                         imageCapture,
                         preview
                     )
-                }
+                },
             ) {
                 Icon(
                     painter = painterResource(R.drawable.rotate),

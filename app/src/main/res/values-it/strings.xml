@@ -46,6 +46,9 @@
     <string name="user_subs_bt">Sottoscrivere</string>
     <string name="user_subscribe">Sottoscrizioni</string>
     <string name="user_subscribers">Sottoscrittori</string>
+    <string name="preprofilecamera_text">Aggiunta di un avatar al tuo profilo</string>
+    <string name="preprofilecamera_btGallery">Seleziona dalla galleria</string>
+    <string name="preprofilecamera_btTakephoto">Fare una foto</string>
 
 
 </resources>

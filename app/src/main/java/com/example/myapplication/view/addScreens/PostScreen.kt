@@ -18,7 +18,6 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.myapplication.R
-import com.example.myapplication.data.DataPost
 import com.example.myapplication.models.AutoresizedText
 import com.example.myapplication.models.NoRippleInteractionSource
 import com.example.myapplication.models.PostScreenVMFactory

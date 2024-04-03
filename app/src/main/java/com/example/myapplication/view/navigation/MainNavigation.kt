@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myapplication.models.NavigationItems
 import com.example.myapplication.view.addScreens.Post
+import com.example.myapplication.view.camerasBookNProfile.secondCameraScreens.PickImageFromGallery
 import com.example.myapplication.view.camerasBookNProfile.secondCameraScreens.PreMainCameraScreen
 import com.example.myapplication.view.camerasBookNProfile.secondCameraScreens.PreProfileCameraScreen
 import com.example.myapplication.view.mainScreens.*
@@ -21,7 +22,7 @@ fun MainNavigation(navController: NavHostController, onThemeUpdated: () -> Unit)
         composable(NavigationItems.Books.route) {
             BooksScreen()
         }
-        composable(NavigationItems.Camera.route) {
+        composable(NavigationItems.CameraInMain.route) {
             PreMainCameraScreen(navController)
         }
         composable(NavigationItems.Bookmarks.route) {
@@ -38,6 +39,14 @@ fun MainNavigation(navController: NavHostController, onThemeUpdated: () -> Unit)
 
         settingsNavigation(navController)
 
+        composable(NavigationItems.Camera.route){
+            Camera(LocalContext.current, navController)
+        }
+
+        // ВРЕМЕННО
+        composable(NavigationItems.Gallery.route){
+            PickImageFromGallery()
+        }
     }
 
 }

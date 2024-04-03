@@ -38,7 +38,7 @@ private fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         NavigationItems.Home,
         NavigationItems.Books,
-        NavigationItems.Camera,
+        NavigationItems.CameraInMain,
         NavigationItems.Bookmarks,
         NavigationItems.Profile,
     )

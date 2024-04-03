@@ -10,8 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -51,7 +49,7 @@ fun TopBar(navController: NavController, scrollBehavior: TopAppBarScrollBehavior
     val title: String = when (navBackStackEntry?.destination?.route ?: "home") {
         "home" -> "Home"
         "books" -> "Books"
-        "camera" -> "Camera"
+        "camerainprofile" -> "CameraInProfile"
         "bookmarks" -> "Bookmarks"
         "profile" -> "Profile"
         else -> "Home"
