@@ -61,7 +61,7 @@ dependencies {
     implementation("androidx.camera:camera-core:1.3.1")
     implementation("androidx.camera:camera-view:1.3.1")
     implementation("androidx.camera:camera-lifecycle:1.3.1")
-    implementation ("androidx.camera:camera-camera2:1.3.1")
+    implementation("androidx.camera:camera-camera2:1.3.1")
     implementation("androidx.test:runner:1.5.2")
     implementation("androidx.compose.material3:material3-android:1.2.0")
 
@@ -79,19 +79,19 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.6")
     // Threads
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
-    implementation ("com.google.accompanist:accompanist-permissions:0.23.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.23.0")
 
     // Exo Player Library
-    implementation ("com.google.android.exoplayer:exoplayer:2.16.1")
+    implementation("com.google.android.exoplayer:exoplayer:2.16.1")
 
     // Library
-    implementation ("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.core:core-ktx:1.7.0")
 
-
-
-
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson2.9.0")
 
 }
