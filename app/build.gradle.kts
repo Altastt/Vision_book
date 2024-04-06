@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myapplication"
+    namespace = "com.example.visionbook"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.example.visionbook"
         minSdk = 29
         //noinspection OldTargetApi
         targetSdk = 33
@@ -92,6 +92,6 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
 }

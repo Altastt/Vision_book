@@ -1,0 +1,42 @@
+package com.example.visionbook.view.camerasBookNProfile.itemsInCameras
+
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import com.example.visionbook.models.AutoresizedText
+import com.example.visionbook.R
+
+
+@Composable
+fun TextFieldCustom (placeholder: String) {
+    val value = remember { mutableStateOf("") }
+    TextField(
+        value = value.value,
+        singleLine = true,
+        onValueChange = { newText -> value.value = newText },
+        shape = RoundedCornerShape(percent = 30),
+        trailingIcon = {
+            IconButton(onClick = { value.value = "" }) {
+                Icon(
+                    painterResource(R.drawable.close),
+                    "close",
+                )
+            }
+        },
+        placeholder = {
+            AutoresizedText(
+                placeholder,
+            )
+        },
+        // убираю нижнее подчеркивание
+        colors = TextFieldDefaults.colors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Transparent,
+        )
+    )
+}
