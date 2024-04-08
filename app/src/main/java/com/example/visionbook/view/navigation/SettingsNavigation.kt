@@ -14,20 +14,20 @@ fun NavGraphBuilder.settingsNavigation(navController: NavHostController) {
         startDestination = SettingsScreen.ProfileSettings.route
     ) {
         composable(SettingsScreen.ProfileSettings.route) {
-            ProfileSettingsScreen()
+            ProfileSettingsScreen(navController)
         }
         composable(SettingsScreen.Notification.route) {
-            NotificationScreen()
+            NotificationScreen(navController)
         }
         composable(SettingsScreen.Security.route) {
-            SecurityScreen()
+            SecurityScreen(navController)
         }
         // переделать под задел на подписки в будущем
         composable(SettingsScreen.Language.route) {
-            LanguageScreen()
+            LanguageScreen(navController)
         }
         composable(SettingsScreen.FAQ.route) {
-            FAQScreen()
+            FAQScreen(navController)
         }
 
         composable(NavigationItems.CameraInProfile.route) {

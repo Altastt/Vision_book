@@ -15,11 +15,11 @@ import coil.compose.AsyncImage
 import com.example.visionbook.data.BooksItem
 import com.example.visionbook.models.AutoresizedText
 import com.example.visionbook.R
-
+import com.example.visionbook.models.dataclasses.BookModel
 
 
 @Composable
-fun BooksScreenItems(book: BooksItem) {
+fun BooksScreenItems(book: BookModel) {
     Card(
         modifier = Modifier
             .padding(top = 5.dp, bottom = 5.dp, start = 12.dp, end = 12.dp)
@@ -31,8 +31,9 @@ fun BooksScreenItems(book: BooksItem) {
             Surface(shape = RoundedCornerShape(30),
                 modifier = Modifier.size(144.dp),
                 content = {
+                    // добавить в саму книгу картинку
                     AsyncImage(
-                        model = book.url, contentDescription = "",
+                        model = "", contentDescription = "",
                         contentScale = ContentScale.Crop,
                     )
                 })

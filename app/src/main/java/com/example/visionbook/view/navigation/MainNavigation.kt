@@ -10,28 +10,29 @@ import com.example.visionbook.view.addScreens.Post
 import com.example.visionbook.view.camerasBookNProfile.secondCameraScreens.PickImageFromGallery
 import com.example.visionbook.view.camerasBookNProfile.secondCameraScreens.PreMainCameraScreen
 import com.example.visionbook.view.mainScreens.*
+import com.example.visionbook.viewmodels.AuthVM
 
 @Composable
-fun MainNavigation(navController: NavHostController, onThemeUpdated: () -> Unit) {
+fun MainNavigation(navController: NavHostController, onThemeUpdated: () -> Unit, authViewModel: AuthVM) {
 
     NavHost(navController, NavigationItems.Home.route) {
         composable(NavigationItems.Home.route) {
-            HomeScreen(navController)
+            HomeScreen(navController, authViewModel)
         }
         composable(NavigationItems.Books.route) {
-            BooksScreen()
+            BooksScreen(authViewModel = authViewModel)
         }
         composable(NavigationItems.CameraInMain.route) {
-            PreMainCameraScreen(navController)
+            PreMainCameraScreen(navController = navController, authViewModel = authViewModel)
         }
         composable(NavigationItems.Bookmarks.route) {
-            BookmarksScreen()
+            BookmarksScreen(authViewModel)
         }
         composable(NavigationItems.Profile.route) {
-            SettingsProfileScreen(navController, onThemeUpdated)
+            SettingsProfileScreen(navController, onThemeUpdated, authViewModel = authViewModel)
         }
         composable(NavigationItems.Post.route) {
-                Post()
+                Post(authViewModel = authViewModel)
         }
 
         profileNavigation(navController)

@@ -20,10 +20,11 @@ import com.example.visionbook.data.MenuItem
 import com.example.visionbook.models.AutoresizedText
 import com.example.visionbook.models.NavigationItems
 import com.example.visionbook.view.navigation.GraphRoute
+import com.example.visionbook.viewmodels.AuthVM
 import com.example.visionbook.viewmodels.ProfileScreenVM
 
 @Composable
-fun SettingsProfileScreen(navController: NavController, onThemeUpdated: () -> Unit, viewModel: ProfileScreenVM = viewModel()) {
+fun SettingsProfileScreen(navController: NavController, onThemeUpdated: () -> Unit, viewModel: ProfileScreenVM = viewModel(), authViewModel: AuthVM) {
     val profileList = viewModel.profileList.value
     val firstProfile = profileList.firstOrNull()
     Column(

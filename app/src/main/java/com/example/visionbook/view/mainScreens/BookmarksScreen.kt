@@ -13,10 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.visionbook.R
+import com.example.visionbook.viewmodels.AuthVM
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BookmarksScreen() {
+fun BookmarksScreen(authViewModel: AuthVM) {
     val tabItems = listOf(
         stringResource(R.string.bookmarks),
         "Скульптуринг",

@@ -21,14 +21,19 @@ import com.example.visionbook.R
 import com.example.visionbook.models.AutoresizedText
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.BackButton
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldCustom
+import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldEmail
 import com.example.visionbook.view.navigation.AuthScreen
+import com.example.visionbook.viewmodels.AuthVM
 
 
 @Composable
-fun ForgotScreen(navController: NavController) {
+fun ForgotScreen(navController: NavController, authViewModel: AuthVM) {
 
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
+
+
+
     Column (
         modifier = Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -47,7 +52,7 @@ fun ForgotScreen(navController: NavController) {
             textAlign = TextAlign.Center
             )
 
-        TextFieldCustom(stringResource(R.string.sign_in_email), emailState, onValueChange = { newValue -> emailState.value = newValue })
+        TextFieldEmail(stringResource(R.string.sign_in_email), emailState, onValueChange = { newValue -> emailState.value = newValue })
 
         Button(
             onClick = { // забывать про предыдущий экран

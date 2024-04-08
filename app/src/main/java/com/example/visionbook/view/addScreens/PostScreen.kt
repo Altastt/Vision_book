@@ -21,6 +21,7 @@ import com.example.visionbook.R
 import com.example.visionbook.models.AutoresizedText
 import com.example.visionbook.models.NoRippleInteractionSource
 import com.example.visionbook.models.PostScreenVMFactory
+import com.example.visionbook.viewmodels.AuthVM
 import com.example.visionbook.viewmodels.BooksScreenVM
 import com.example.visionbook.viewmodels.ExoPlayerVM
 import com.example.visionbook.viewmodels.PostScreenVM
@@ -31,6 +32,7 @@ import com.google.android.exoplayer2.ui.PlayerView
 @Composable
 fun Post(
     playerViewModel: ExoPlayerVM = viewModel(),
+    authViewModel: AuthVM
 ){
     val userViewModel = viewModel<ProfileScreenVM>()
     val bookViewModel = viewModel<BooksScreenVM>()

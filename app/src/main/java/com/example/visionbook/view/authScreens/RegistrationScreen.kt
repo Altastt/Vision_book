@@ -1,12 +1,24 @@
 package com.example.visionbook.view.authScreens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -18,7 +30,7 @@ import com.example.visionbook.R
 import com.example.visionbook.models.AutoresizedText
 import com.example.visionbook.models.api.AuthApi
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.BackButton
-import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldCustom
+import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldEmail
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldPass
 import com.example.visionbook.view.navigation.GraphRoute
 import com.example.visionbook.viewmodels.AuthVM
@@ -32,7 +44,7 @@ import java.lang.Thread.sleep
 @Composable
 fun RegistrationScreen(
     navController: NavController,
-    authViewModel: AuthVM = viewModel(),
+    authViewModel: AuthVM,
     retrofitViewModel: RetrofitVM = viewModel()
 ) {
     val authApi = retrofitViewModel.retrofit.create(AuthApi::class.java)
@@ -73,7 +85,7 @@ fun RegistrationScreen(
             modifier = Modifier.padding(bottom = 110.dp)
         )
 
-        TextFieldCustom(
+        TextFieldEmail(
             stringResource(R.string.sign_in_email),
             emailState,
             onValueChange = { newValue -> emailState.value = newValue })
@@ -112,14 +124,16 @@ fun RegistrationScreen(
         }
         // ассинхронщина тут
         Button(
-            onClick = { // ПОФИКСИТЬ БЭКСТЭК, РАЗДЕЛИТЬ КОРУТИНЫ
+            onClick = { // ПОФИКСИТЬ БЭКСТЭК
                 CoroutineScope(Dispatchers.IO).launch {
                     authViewModel.registration(emailState.value, passwordState.value, authApi)
                     sleep(1000)
+                }
+                CoroutineScope(Dispatchers.IO).launch {
                     authViewModel.authorization(emailState.value, passwordState.value, authApi)
                 }
                 navController.navigate(GraphRoute.MAIN) {
-                    popUpTo(GraphRoute.MAIN)
+                   navController.popBackStack()
                 }
             },
             shape = RoundedCornerShape(30),

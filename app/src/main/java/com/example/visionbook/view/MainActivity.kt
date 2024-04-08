@@ -20,6 +20,7 @@ import com.example.visionbook.view.navigation.MainNavigation
 import com.example.visionbook.view.navigation.RootNavigation
 import com.example.visionbook.ui.theme.MyApplicationTheme
 import com.example.visionbook.view.addScreens.SearchAndFilters
+import com.example.visionbook.viewmodels.AuthVM
 import com.example.visionbook.viewmodels.SearchAndFiltersVM
 
 
@@ -40,7 +41,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(onThemeUpdated: () -> Unit) {
+fun MainScreen(onThemeUpdated: () -> Unit, authViewModel: AuthVM) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -99,10 +100,10 @@ fun MainScreen(onThemeUpdated: () -> Unit) {
         topBar = { AnimatedTopNavigationBar(navController, topBarState, scrollBehavior, viewModel) },
         content = {
             if (viewModel.showSearchAndFilters.value) {
-                MainNavigation(navController, onThemeUpdated)
+                MainNavigation(navController, onThemeUpdated, authViewModel)
                 SearchAndFilters()
             } else {
-                MainNavigation(navController, onThemeUpdated)
+                MainNavigation(navController, onThemeUpdated, authViewModel)
             }
         },
         bottomBar = { AnimatedBottomNavigationBar(navController, bottomBarState) },

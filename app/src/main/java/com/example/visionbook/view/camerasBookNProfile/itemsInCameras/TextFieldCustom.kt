@@ -20,7 +20,52 @@ import com.example.visionbook.R
 
 
 @Composable
-fun TextFieldCustom (placeholder: String, emailState: MutableState<String>, onValueChange: (String) -> Unit) {
+fun TextFieldCustom(
+    placeholder: String,
+    author: Boolean = false,
+    genre: Boolean = false,
+    titleState: MutableState<String>,
+    authorState: MutableState<String>,
+    genreState: MutableState<String>,
+    onValueChange: (String) -> Unit
+) {
+    val stringState = if (author) authorState
+    else if (genre) genreState
+    else titleState
+    TextField(
+        value = stringState.value,
+        singleLine = true,
+        onValueChange = onValueChange,
+        shape = RoundedCornerShape(percent = 30),
+        trailingIcon = {
+            IconButton(onClick = { stringState.value = "" }) {
+                Icon(
+                    painterResource(R.drawable.close),
+                    "close",
+                    modifier = Modifier.size(30.dp)
+                )
+            }
+        },
+        placeholder = {
+            AutoresizedText(
+                placeholder,
+            )
+        },
+        // убираю нижнее подчеркивание
+        colors = TextFieldDefaults.colors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Transparent,
+        )
+    )
+}
+
+@Composable
+fun TextFieldEmail(
+    placeholder: String,
+    emailState: MutableState<String>,
+    onValueChange: (String) -> Unit
+) {
     TextField(
         value = emailState.value,
         singleLine = true,
@@ -58,7 +103,7 @@ fun TextFieldPass(
     onValueChange: (String) -> Unit
 ) {
     val showPasswordState = remember { mutableStateOf(false) }
-
+    // ДЛЯ ПОВТОРНОГО ПАРОЛЯ ДОБАВИТЬ ЕЩЕ ОДНУ ПЕРЕМЕННУЮ
     // Проверяем на схожесть пароли, если это второй пароль
     val passwordMatches = if (secondPassword) {
         passwordState.value == passwordToMatch
@@ -71,12 +116,11 @@ fun TextFieldPass(
 
     TextField(
         value = passwordState.value,
-        onValueChange = {
-                newValue -> passwordState.value = newValue
-        },
+        onValueChange = onValueChange,
         placeholder = { Text(placeholder) },
         visualTransformation = if (showPasswordState.value) VisualTransformation.None else PasswordVisualTransformation(),
         modifier = Modifier.padding(bottom = 20.dp),
+        shape = RoundedCornerShape(percent = 30),
         trailingIcon = {
             IconButton(onClick = { showPasswordState.value = !showPasswordState.value }) {
                 Icon(

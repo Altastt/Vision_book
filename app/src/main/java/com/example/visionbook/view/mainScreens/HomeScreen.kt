@@ -8,10 +8,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.visionbook.view.mainScreens.itemsInLists.HomeScreenItems
+import com.example.visionbook.viewmodels.AuthVM
 
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, authViewModel: AuthVM) {
 
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
