@@ -9,6 +9,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,6 +26,9 @@ import com.example.visionbook.view.navigation.AuthScreen
 
 @Composable
 fun ForgotScreen(navController: NavController) {
+
+    val emailState = remember { mutableStateOf("") }
+    val passwordState = remember { mutableStateOf("") }
     Column (
         modifier = Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -42,7 +47,7 @@ fun ForgotScreen(navController: NavController) {
             textAlign = TextAlign.Center
             )
 
-        TextFieldCustom(stringResource(R.string.sign_in_email))
+        TextFieldCustom(stringResource(R.string.sign_in_email), emailState, onValueChange = { newValue -> emailState.value = newValue })
 
         Button(
             onClick = { // забывать про предыдущий экран

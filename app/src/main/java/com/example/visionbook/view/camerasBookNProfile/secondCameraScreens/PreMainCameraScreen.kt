@@ -17,6 +17,8 @@ import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldC
 
 @Composable
 fun PreMainCameraScreen(navController: NavController) {
+    val emailState = remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(top = 30.dp, start = 22.dp, end = 22.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -60,11 +62,11 @@ fun PreMainCameraScreen(navController: NavController) {
                 modifier = Modifier.padding(top = 30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TextFieldCustom(stringResource(R.string.name))
+                TextFieldCustom(stringResource(R.string.name), emailState, onValueChange = { newValue -> emailState.value = newValue })
                 Spacer(modifier = Modifier.padding(top = 10.dp))
-                TextFieldCustom(stringResource(R.string.author))
+                TextFieldCustom(stringResource(R.string.author), emailState, onValueChange = { newValue -> emailState.value = newValue })
                 Spacer(modifier = Modifier.padding(top = 10.dp))
-                TextFieldCustom(stringResource(R.string.genre))
+                TextFieldCustom(stringResource(R.string.genre), emailState, onValueChange = { newValue -> emailState.value = newValue })
 
                 Button(
                     modifier = Modifier.padding(top = 20.dp),
