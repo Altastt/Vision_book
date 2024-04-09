@@ -68,9 +68,9 @@ class AuthVM : ViewModel() {
                         )
 
                     )
-                    Log.d("ВЕРНИ ТОКЕН ЗАРАЗА", userToken)
+                    Log.d("ВЕРНИ ТОКЕН ЗАРАЗА", userToken.token)
                     // Установка токена после успешной аутентификации
-                    setToken(userToken)
+                    setToken(userToken.token)
                 }
             } catch (e: Exception) {
                 // Обработка ошибок

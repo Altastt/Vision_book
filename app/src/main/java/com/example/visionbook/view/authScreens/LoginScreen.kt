@@ -2,7 +2,13 @@ package com.example.visionbook.view.authScreens
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -19,14 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.visionbook.models.AutoresizedText
-import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldCustom
-import com.example.visionbook.view.navigation.AuthScreen
-import com.example.visionbook.view.navigation.GraphRoute
 import com.example.visionbook.R
+import com.example.visionbook.models.AutoresizedText
 import com.example.visionbook.models.api.AuthApi
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldEmail
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldPass
+import com.example.visionbook.view.navigation.AuthScreen
+import com.example.visionbook.view.navigation.GraphRoute
 import com.example.visionbook.viewmodels.AuthVM
 import com.example.visionbook.viewmodels.RetrofitVM
 import kotlinx.coroutines.CoroutineScope

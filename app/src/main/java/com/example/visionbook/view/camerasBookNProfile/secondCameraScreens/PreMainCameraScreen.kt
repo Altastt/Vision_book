@@ -1,16 +1,26 @@
 package com.example.visionbook.view.camerasBookNProfile.secondCameraScreens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.visionbook.R
@@ -21,12 +31,14 @@ import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldC
 import com.example.visionbook.viewmodels.AuthVM
 import com.example.visionbook.viewmodels.BooksScreenVM
 import com.example.visionbook.viewmodels.RetrofitVM
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Thread.sleep
 
 @Composable
 fun PreMainCameraScreen(
-    booksViewModel: BooksScreenVM = viewModel(LocalViewModelStoreOwner.current!!),
+    booksViewModel: BooksScreenVM = viewModel(),
     retrofitViewModel: RetrofitVM = viewModel(),
     navController: NavController,
     authViewModel: AuthVM
@@ -37,7 +49,8 @@ fun PreMainCameraScreen(
     val authorState = remember { mutableStateOf("") }
     val genreState = remember { mutableStateOf("") }
 
-    val viewModelScope = rememberCoroutineScope()
+    var idBook = 0
+
     DisposableEffect(booksViewModel) {
         val observerTitle = Observer<String> { _titleState ->
             titleState.value = _titleState
@@ -90,7 +103,7 @@ fun PreMainCameraScreen(
             // СКОРЕЕ ВСЕГО ДЕЛАТЬ ЭКРАН КНИГИИИИИИ
             Button(
                 onClick = {
-                    viewModelScope.launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         booksViewModel.addBookToHistory(tokenState.value, bookApi, 4) // IDBOOK ОТКУДАТО БРАТЬ И СОХРАНЯТЬ
                     }
                     navController.navigate(NavigationItems.Books.route)
@@ -147,18 +160,24 @@ fun PreMainCameraScreen(
                 Button(
                     modifier = Modifier.padding(top = 20.dp),
                     onClick = {
-                        viewModelScope.launch {
+                        CoroutineScope(Dispatchers.IO).launch {
                             booksViewModel.addBookToSharedList(
                                 tokenState.value,
                                 author = authorState.value,
                                 genre = genreState.value,
                                 title = titleState.value,
-                                bookApi = bookApi
+                                bookApi = bookApi,
+                                onComplete = { _idBook ->
+                                    idBook = _idBook.idBook
+                                },
+                                onError = { e ->
+                                    e.printStackTrace()
+                                }
                             )
                             sleep(1000)
                         }
-                        viewModelScope.launch {
-                            booksViewModel.addBookToHistory(tokenState.value, bookApi, 2) // IDBOOK ОТКУДАТО БРАТЬ И СОХРАНЯТЬ
+                        CoroutineScope(Dispatchers.IO).launch {
+                            booksViewModel.addBookToHistory(tokenState.value, bookApi, idBook)
                         }
                         navController.navigate(NavigationItems.Camera.route)
                         showAdditionalFields = false
