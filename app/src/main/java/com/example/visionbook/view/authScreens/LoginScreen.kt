@@ -1,5 +1,6 @@
 package com.example.visionbook.view.authScreens
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
@@ -38,6 +40,7 @@ fun LoginScreen(
     authViewModel: AuthVM,
     retrofitViewModel: RetrofitVM = viewModel()
 ) {
+    val context = LocalContext.current
     val authApi = retrofitViewModel.retrofit.create(AuthApi::class.java)
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
@@ -92,12 +95,20 @@ fun LoginScreen(
                 .clickable { navController.navigate(AuthScreen.Forgot.route) }
         )
         Button(
-            onClick = { // забывать про предыдущий экран
-                CoroutineScope(Dispatchers.IO).launch {
-                    authViewModel.authorization(emailState.value, passwordState.value, authApi)
-                }
-                navController.navigate(GraphRoute.MAIN) {
-                    navController.popBackStack()
+            onClick = {
+                if (emailState.value != "" && passwordState.value != "") {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        authViewModel.authorization(emailState.value, passwordState.value, authApi)
+                    }
+                    navController.navigate(GraphRoute.MAIN) {
+                        navController.popBackStack()
+                    }
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Почта или пароль не введены",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
             shape = RoundedCornerShape(30),

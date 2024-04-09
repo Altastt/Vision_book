@@ -1,5 +1,6 @@
 package com.example.visionbook.view.authScreens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
@@ -32,6 +34,7 @@ import com.example.visionbook.models.api.AuthApi
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.BackButton
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldEmail
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldPass
+import com.example.visionbook.view.navigation.AuthScreen
 import com.example.visionbook.view.navigation.GraphRoute
 import com.example.visionbook.viewmodels.AuthVM
 import com.example.visionbook.viewmodels.RetrofitVM
@@ -47,11 +50,13 @@ fun RegistrationScreen(
     authViewModel: AuthVM,
     retrofitViewModel: RetrofitVM = viewModel()
 ) {
+    val context = LocalContext.current
     val authApi = retrofitViewModel.retrofit.create(AuthApi::class.java)
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
     val secondPasswordState = remember { mutableStateOf("") }
-    // Забираем значения из вьюмодели
+    var passwordsMatchState by remember { mutableStateOf(false) }
+
     DisposableEffect(authViewModel) {
 
         val observerEmailState = Observer<String> { _emailState ->
@@ -76,6 +81,9 @@ fun RegistrationScreen(
     }
     var checked by remember {
         mutableStateOf(false)
+    }
+    val updatePasswordMatchState: () -> Unit = {
+        passwordsMatchState = authViewModel.checkPasswordMatch(passwordState.value, secondPasswordState.value)
     }
 
     Column(
@@ -110,7 +118,10 @@ fun RegistrationScreen(
             secondPassword = true,
             passwordState,
             secondPasswordState = secondPasswordState,
-            onValueChange = { newValue -> passwordState.value = newValue }
+            onValueChange = {
+                newValue -> secondPasswordState.value = newValue
+                updatePasswordMatchState()
+            },
         )
 
 
@@ -133,15 +144,35 @@ fun RegistrationScreen(
         // ассинхронщина тут
         Button(
             onClick = { // ПОФИКСИТЬ БЭКСТЭК
-                CoroutineScope(Dispatchers.IO).launch {
-                    authViewModel.registration(emailState.value, passwordState.value, authApi)
-                    sleep(1000)
-                }
-                CoroutineScope(Dispatchers.IO).launch {
-                    authViewModel.authorization(emailState.value, passwordState.value, authApi)
-                }
-                navController.navigate(GraphRoute.MAIN) {
-                   navController.popBackStack()
+                if (passwordsMatchState && passwordState.value != "" && emailState.value != "" && checked) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        authViewModel.registration(emailState.value, passwordState.value, authApi)
+                        sleep(1000)
+                    }
+                    CoroutineScope(Dispatchers.IO).launch {
+                        authViewModel.authorization(emailState.value, passwordState.value, authApi)
+                    }
+                    navController.navigate(GraphRoute.MAIN) {
+                        navController.popBackStack(AuthScreen.Login.route, true)
+                    }
+                } else if (passwordState.value == "" || emailState.value == "") {
+                    Toast.makeText(
+                        context,
+                        "Почта или пароль не введены",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (checked == false) {
+                    Toast.makeText(
+                        context,
+                        "Условия политики конфиденциальности не приняты",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Пароли не совпадают",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
             shape = RoundedCornerShape(30),

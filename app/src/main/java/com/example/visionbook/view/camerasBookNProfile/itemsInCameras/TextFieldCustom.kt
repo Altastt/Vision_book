@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -103,7 +104,8 @@ fun TextFieldPass(
     secondPassword: Boolean = false,
     passwordState: MutableState<String>,
     secondPasswordState: MutableState<String>?,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+
 ) {
     val showPasswordState = remember { mutableStateOf(false) }
 
@@ -122,10 +124,10 @@ fun TextFieldPass(
     if (textState != null) {
         TextField(
             value = textState.value,
+            singleLine = true,
             onValueChange = onValueChange,
             placeholder = { AutoresizedText(placeholder) },
             visualTransformation = if (showPasswordState.value) VisualTransformation.None else PasswordVisualTransformation(),
-            modifier = Modifier.padding(bottom = 30.dp),
             shape = RoundedCornerShape(percent = 30),
             trailingIcon = {
                 IconButton(onClick = { showPasswordState.value = !showPasswordState.value }) {
@@ -143,7 +145,7 @@ fun TextFieldPass(
                 unfocusedIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,
             ),
-            textStyle = TextStyle(color = passwordColor) // Устанавливаем цвет текста поля ввода в зависимости от совпадения паролей
+            textStyle = MaterialTheme.typography.bodyLarge.copy(color = passwordColor)
         )
     }
 }
