@@ -1,42 +1,26 @@
 package com.example.visionbook.view.mainScreens
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.visionbook.R
 import com.example.visionbook.models.api.BooksApi
+import com.example.visionbook.models.dataclasses.Book
 import com.example.visionbook.models.dataclasses.BookModel
 import com.example.visionbook.view.mainScreens.itemsInLists.BooksScreenItems
 import com.example.visionbook.viewmodels.AuthVM
 import com.example.visionbook.viewmodels.BooksScreenVM
 import com.example.visionbook.viewmodels.RetrofitVM
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,7 +33,7 @@ fun BooksScreen(booksViewModel: BooksScreenVM = viewModel(),
     val queryState = remember { mutableStateOf("") }
     val activeState = remember { mutableStateOf(false) }
 
-    val bookListState = remember { mutableStateOf<List<BookModel>?>(null) }
+    val bookListState = remember { mutableStateOf<List<Book>?>(null) }
     val amount = 30
     val items = remember {
         mutableListOf(
@@ -71,14 +55,35 @@ fun BooksScreen(booksViewModel: BooksScreenVM = viewModel(),
             queryState.value = query
         }
         booksViewModel.query.observeForever(observerQuery)
+        val observerBookList = Observer<List<Book>> { bookList ->
+            bookListState.value = bookList
+        }
+        booksViewModel.bookList.observeForever(observerBookList)
         onDispose {
             authViewModel.tokenState.observeForever(observerToken)
             booksViewModel.query.observeForever(observerQuery)
+            booksViewModel.bookList.observeForever(observerBookList)
         }
 
     }
-
-    bookListState.value?.let { bookList ->
+    LazyColumn(
+        modifier = Modifier.fillMaxSize().padding(top = 80.dp)
+    ) {
+        items(bookListState.value ?: emptyList()) { book ->
+            BooksScreenItems(book = book)
+            HorizontalDivider(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)
+                    .clip(
+                        RoundedCornerShape(50)
+                    ),
+                thickness = 2.dp,
+                color = MaterialTheme.colorScheme.secondary
+            )
+        }
+    }
+    /*bookListState.value?.let { bookList ->
         SearchBar(
             query = queryState.value,
             onQueryChange = {
@@ -89,9 +94,9 @@ fun BooksScreen(booksViewModel: BooksScreenVM = viewModel(),
             shape = RoundedCornerShape(0),
             onSearch = {
                 items.add(queryState.value)
-                /*CoroutineScope(Dispatchers.IO).launch {
+                *//*CoroutineScope(Dispatchers.IO).launch {
                     booksViewModel.getBookByName(bookApi, token = tokenState.value, queryState.value)
-                }*/
+                }*//*
                 activeState.value = false
 
             },
@@ -124,23 +129,7 @@ fun BooksScreen(booksViewModel: BooksScreenVM = viewModel(),
                     Text(text = it)
                 }
             }
-        }
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(top = 80.dp)
-        ) {
-            items(bookList) { book ->
-                BooksScreenItems(book = book)
-                HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 20.dp, end = 20.dp)
-                        .clip(
-                            RoundedCornerShape(50)
-                        ),
-                    thickness = 2.dp,
-                    color = MaterialTheme.colorScheme.secondary
-                )
-            }
-        }
+        }*/
+
     }
-}
+//}

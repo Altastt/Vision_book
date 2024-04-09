@@ -12,14 +12,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.visionbook.data.BooksItem
-import com.example.visionbook.models.AutoresizedText
 import com.example.visionbook.R
-import com.example.visionbook.models.dataclasses.BookModel
+import com.example.visionbook.models.AutoresizedText
+import com.example.visionbook.models.dataclasses.Book
 
 
 @Composable
-fun BooksScreenItems(book: BookModel) {
+fun BooksScreenItems(book: Book) {
     Card(
         modifier = Modifier
             .padding(top = 5.dp, bottom = 5.dp, start = 12.dp, end = 12.dp)

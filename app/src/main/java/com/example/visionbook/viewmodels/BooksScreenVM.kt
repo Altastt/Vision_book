@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.visionbook.models.api.BooksApi
-import com.example.visionbook.models.dataclasses.BookIdModel
-import com.example.visionbook.models.dataclasses.BookModel
+import com.example.visionbook.models.dataclasses.Book
+import com.example.visionbook.models.dataclasses.BookModelToShare
 import com.example.visionbook.models.dataclasses.BookToShareModel
+import com.example.visionbook.models.dataclasses.BooktoHistoryModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,18 +25,16 @@ class BooksScreenVM(private val coroutineScope: CoroutineScope) : ViewModel() {
     private val _query = MutableLiveData("")
     val query: LiveData<String> = _query
 
+    private val _bookList = MutableLiveData<List<Book>>()
+    val bookList: LiveData<List<Book>> = _bookList
     fun updateQuery(newQuery: String) {
         _query.value = newQuery
     }
     suspend fun getListOfBooks(token: String, bookApi: BooksApi, amount: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                withContext(Dispatchers.Main) {
-                    bookApi.getBooks(
-                        token,
-                        amount
-                    )
-                }
+                val bookList = bookApi.getBooks(token, amount).book
+                _bookList.postValue(bookList) // Здесь изменяем значение
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -67,7 +66,7 @@ class BooksScreenVM(private val coroutineScope: CoroutineScope) : ViewModel() {
                     bookApi.addBookToSharedList(
                         token,
                         BookToShareModel(
-                            BookModel(
+                            BookModelToShare(
                                 author = author,
                                 title = title,
                                 genre = genre
@@ -88,7 +87,7 @@ class BooksScreenVM(private val coroutineScope: CoroutineScope) : ViewModel() {
                 withContext(Dispatchers.Main) {
                     bookApi.addBookToHistory(
                         token,
-                        BookIdModel(
+                        BooktoHistoryModel(
                             idBook
                         )
                     )
