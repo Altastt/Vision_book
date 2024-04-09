@@ -18,6 +18,8 @@ class AuthVM : ViewModel() {
     val emailState: LiveData<String> = _emailState
     private val _passwordState = MutableLiveData<String>()
     val passwordState: LiveData<String> = _passwordState
+    private val _secondPasswordState = MutableLiveData<String>()
+    val secondPasswordState: LiveData<String> = _secondPasswordState
 
     private val _tokenState = MutableLiveData<String>()
     val tokenState: LiveData<String> = _tokenState

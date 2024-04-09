@@ -80,6 +80,7 @@ fun LoginScreen(
         TextFieldPass(
             stringResource(R.string.sign_in_password),
             passwordState = passwordState,
+            secondPasswordState = null,
             onValueChange = { newValue -> passwordState.value = newValue })
 
         Text(

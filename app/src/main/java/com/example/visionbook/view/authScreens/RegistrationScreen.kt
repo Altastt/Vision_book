@@ -50,6 +50,7 @@ fun RegistrationScreen(
     val authApi = retrofitViewModel.retrofit.create(AuthApi::class.java)
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
+    val secondPasswordState = remember { mutableStateOf("") }
     // Забираем значения из вьюмодели
     DisposableEffect(authViewModel) {
 
@@ -62,9 +63,15 @@ fun RegistrationScreen(
             passwordState.value = _passwordState
         }
         authViewModel.passwordState.observeForever(observerPasswordState)
+
+        val observerSecondPasswordState = Observer<String> { _secondPasswordState ->
+            secondPasswordState.value = _secondPasswordState
+        }
+        authViewModel.secondPasswordState.observeForever(observerSecondPasswordState)
         onDispose {
             authViewModel.emailState.removeObserver(observerEmailState)
             authViewModel.passwordState.removeObserver(observerPasswordState)
+            authViewModel.secondPasswordState.observeForever(observerSecondPasswordState)
         }
     }
     var checked by remember {
@@ -94,14 +101,15 @@ fun RegistrationScreen(
         TextFieldPass(
             stringResource(R.string.sign_in_password),
             passwordState = passwordState,
+            secondPasswordState = secondPasswordState,
             onValueChange = { newValue -> passwordState.value = newValue }
         )
         Spacer(modifier = Modifier.height(15.dp))
         TextFieldPass(
             stringResource(R.string.sign_in_retrypassword),
             secondPassword = true,
-            passwordToMatch = passwordState.value,
             passwordState,
+            secondPasswordState = secondPasswordState,
             onValueChange = { newValue -> passwordState.value = newValue }
         )
 

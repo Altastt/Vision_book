@@ -14,9 +14,9 @@ class PostScreenVM(
         val avatarUrl = userViewModel.profileList.value.random().nickname
 
         // Получаем данные о книге из BookViewModel
-        val bookTitle = bookViewModel.booksList.value.random().title
-        val bookGenre = bookViewModel.booksList.value.random().genre
-        val bookAuthor = bookViewModel.booksList.value.random().author
+        val bookTitle = bookViewModel.titleState.value!!
+        val bookGenre = bookViewModel.genreState.value!!
+        val bookAuthor = bookViewModel.authorState.value!!
 
         // Выбираем случайный текст из списка
         val bookText = DataPost.textList.random()
