@@ -1,6 +1,6 @@
 package com.example.visionbook.models.api
 
-import com.example.visionbook.models.dataclasses.AuthModel
+import com.example.visionbook.models.dataclasses.LogModel
 import com.example.visionbook.models.dataclasses.RegModel
 import com.example.visionbook.models.dataclasses.RegistrationModel
 import retrofit2.http.Body
@@ -14,5 +14,5 @@ interface AuthApi {
 
     @Headers("Content-Type: application/json")
     @POST("auth/login")
-    suspend fun userLogin(@Body registration: RegistrationModel): AuthModel
+    suspend fun userLogin(@Body registration: RegistrationModel): LogModel
 }

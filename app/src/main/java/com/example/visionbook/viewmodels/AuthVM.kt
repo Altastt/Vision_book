@@ -32,7 +32,7 @@ class AuthVM : ViewModel() {
             true
         }
     }
-    fun setToken(token: String) {
+    private fun setToken(token: String) {
         _tokenState.value = token
     }
 
