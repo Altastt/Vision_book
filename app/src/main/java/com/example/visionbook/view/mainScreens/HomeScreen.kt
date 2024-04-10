@@ -23,7 +23,7 @@ fun HomeScreen(navController: NavController, authViewModel: AuthVM) {
                 Spacer(modifier = Modifier.height(60.dp))
             }
             items(50) {
-                HomeScreenItems(navController)
+                HomeScreenItems(navController, authViewModel)
             }
         },
         modifier = Modifier.fillMaxSize().padding(start = 12.dp, end = 12.dp)

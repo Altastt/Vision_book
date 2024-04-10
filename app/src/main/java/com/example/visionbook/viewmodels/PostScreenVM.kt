@@ -12,25 +12,37 @@ class PostScreenVM(
         // Получаем данные о пользователе из UserViewModel
         val username = userViewModel.profileList.value.random().nickname
         val avatarUrl = userViewModel.profileList.value.random().nickname
-
+        val bookTitle = bookViewModel.titleState.value
+        val bookGenre = bookViewModel.genreState.value
+        val bookAuthor = bookViewModel.authorState.value
         // Получаем данные о книге из BookViewModel
-        val bookTitle = bookViewModel.titleState.value!!
-        val bookGenre = bookViewModel.genreState.value!!
-        val bookAuthor = bookViewModel.authorState.value!!
+
 
         // Выбираем случайный текст из списка
         val bookText = DataPost.textList.random()
         val videoUrl = DataPost.videoUrlList.random()
+        if (bookTitle != null && bookGenre != null && bookAuthor != null) {
+            return PostItem(
+                username = username,
+                avatarUrl = avatarUrl,
+                bookTitle = bookTitle,
+                bookGenre = bookGenre,
+                bookAuthor = bookAuthor,
+                bookText = bookText,
+                videoUrl = videoUrl
+            )
+        } else {
+            return PostItem(
+                username = username,
+                avatarUrl = avatarUrl,
+                bookTitle = "Title empty",
+                bookGenre = "Genre empty",
+                bookAuthor = "Author empty",
+                bookText = bookText,
+                videoUrl = videoUrl
+            )
+        }
 
-        return PostItem(
-            username = username,
-            avatarUrl = avatarUrl,
-            bookTitle = bookTitle,
-            bookGenre = bookGenre,
-            bookAuthor = bookAuthor,
-            bookText = bookText,
-            videoUrl = videoUrl
-        )
     }
 
     fun getPostItemsList(size: Int): List<PostItem> {
