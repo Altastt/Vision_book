@@ -2,6 +2,14 @@
 
 VisionBook - это Android-приложение, разработанное для визуализации текста книг с использованием искусственного интеллекта.
 
+## Видео работы приложения
+https://youtu.be/gl2gbkn4LPU
+
+## Гугл диск 
+- [Презентация](https://drive.google.com/drive/folders/1Bvw5DmZyGm4_xLwOG3VcRFXso1Qudnf4?usp=sharing)
+- [APK](https://drive.google.com/drive/folders/13QI2_chyeswbQbYnXAIjqPj-H7pImoy5?usp=sharing)
+- [Документы проекта](https://drive.google.com/drive/folders/1aqwfq-vE9pCX91H6lt5jKp_YLRIYcBXb?usp=sharing)
+
 ## Установка
 
 Для установки VisionBook на ваше устройство, загрузите и установите APK файл приложения.
