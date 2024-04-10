@@ -32,7 +32,7 @@ import com.example.visionbook.viewmodels.AuthVM
 fun ForgotScreen(navController: NavController, authViewModel: AuthVM) {
     val context = LocalContext.current
     val emailState = remember { mutableStateOf("") }
-
+    val checkEmail = stringResource(R.string.check_email)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +70,7 @@ fun ForgotScreen(navController: NavController, authViewModel: AuthVM) {
                 } else {
                     Toast.makeText(
                         context,
-                        "Почта не введена",
+                        checkEmail,
                         Toast.LENGTH_SHORT
                     ).show()
                 }

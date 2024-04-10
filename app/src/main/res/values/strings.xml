@@ -55,4 +55,31 @@
     <string name="preprofilecamera_btGallery">Выбрать из галереи</string>
     <string name="preprofilecamera_btTakephoto">Сделать фото</string>
 
+
+    <string name="check_email">Почта не введена</string>
+    <string name="check_email_pass">Почта или пароль не введены</string>
+    <string name="check_privacypolicy">Условия политики конфиденциальности не приняты</string>
+    <string name="match_pass">Пароли не совпадают</string>
+
+    <string name="books_screen_tab_b">Книги</string>
+    <string name="books_screen_tab_h">История сканирования</string>
+
+    <string name="faqset_FAQ">FAQ</string>
+    <string name="faqset_title">FAQ и поддержка</string>
+    <string name="faqset_support">Поддержка</string>
+
+    <string name="langset_title">Настройки языка</string>
+
+    <string name="notset_title">Настройки уведомлений</string>
+    <string name="notset_comm">Комментарии</string>
+    <string name="notset_newsub">Новые подписчики</string>
+    <string name="notset_recom">Рекомендации</string>
+    <string name="notset_mention">Упоминания</string>
+    <string name="notset_interestpost">Интересные посты</string>
+    <string name="notset_interestgenre">Интересные жанры</string>
+    <string name="notset_populargenre">Популярные жанры</string>
+
+
+
+
 </resources>

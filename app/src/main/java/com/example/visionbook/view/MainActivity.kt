@@ -94,6 +94,10 @@ fun MainScreen(onThemeUpdated: () -> Unit, authViewModel: AuthVM) {
             topBarState.value = false
             bottomBarState.value = false
         }
+        else -> {
+            topBarState.value = false
+            bottomBarState.value = false
+        }
     }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

@@ -7,8 +7,9 @@ import androidx.navigation.navigation
 import com.example.visionbook.models.NavigationItems
 import com.example.visionbook.view.camerasBookNProfile.secondCameraScreens.PreProfileCameraScreen
 import com.example.visionbook.view.settingsScreen.*
+import com.example.visionbook.viewmodels.AuthVM
 
-fun NavGraphBuilder.settingsNavigation(navController: NavHostController) {
+fun NavGraphBuilder.settingsNavigation(navController: NavHostController, authViewModel: AuthVM) {
     navigation(
         route = GraphRoute.SETTINGS,
         startDestination = SettingsScreen.ProfileSettings.route
@@ -33,6 +34,7 @@ fun NavGraphBuilder.settingsNavigation(navController: NavHostController) {
         composable(NavigationItems.CameraInProfile.route) {
             PreProfileCameraScreen(navController)
         }
+        authNavigation(navController, authViewModel)
     }
 }
 

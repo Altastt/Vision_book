@@ -57,6 +57,9 @@ fun RegistrationScreen(
     val secondPasswordState = remember { mutableStateOf("") }
     var passwordsMatchState by remember { mutableStateOf(false) }
 
+    val checkEmailPass = stringResource(R.string.check_email_pass)
+    val checkPrivacyPolicy = stringResource(R.string.check_privacypolicy)
+    val matchPass = stringResource(R.string.match_pass)
     DisposableEffect(authViewModel) {
 
         val observerEmailState = Observer<String> { _emailState ->
@@ -91,7 +94,9 @@ fun RegistrationScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 80.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 80.dp)
         ) { BackButton(navController) }
 
         AutoresizedText(
@@ -105,7 +110,6 @@ fun RegistrationScreen(
             emailState,
             onValueChange = { newValue -> emailState.value = newValue })
         Spacer(modifier = Modifier.height(15.dp))
-        // Передать сюда состояния с вьюмодели для пароля
         TextFieldPass(
             stringResource(R.string.sign_in_password),
             passwordState = passwordState,
@@ -134,16 +138,17 @@ fun RegistrationScreen(
                 onCheckedChange = { _checked ->
                     checked = _checked
                 },
-                modifier = Modifier.size(50.dp).padding(end = 10.dp)
+                modifier = Modifier
+                    .size(50.dp)
+                    .padding(end = 10.dp)
             )
             Text(
                 stringResource(R.string.sign_up_confidence),
                 style = MaterialTheme.typography.titleSmall
             )
         }
-        // ассинхронщина тут
         Button(
-            onClick = { // ПОФИКСИТЬ БЭКСТЭК
+            onClick = {
                 if (passwordsMatchState && passwordState.value != "" && emailState.value != "" && checked) {
                     CoroutineScope(Dispatchers.IO).launch {
                         authViewModel.registration(emailState.value, passwordState.value, authApi)
@@ -158,25 +163,28 @@ fun RegistrationScreen(
                 } else if (passwordState.value == "" || emailState.value == "") {
                     Toast.makeText(
                         context,
-                        "Почта или пароль не введены",
+                        checkEmailPass,
                         Toast.LENGTH_SHORT
                     ).show()
                 } else if (checked == false) {
                     Toast.makeText(
                         context,
-                        "Условия политики конфиденциальности не приняты",
+                        checkPrivacyPolicy,
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     Toast.makeText(
                         context,
-                        "Пароли не совпадают",
+                        matchPass,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             },
             shape = RoundedCornerShape(30),
-            modifier = Modifier.width(140.dp).height(80.dp).padding(top = 30.dp),
+            modifier = Modifier
+                .width(140.dp)
+                .height(80.dp)
+                .padding(top = 30.dp),
 
             ) {
             AutoresizedText(

@@ -26,9 +26,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.visionbook.R
 import com.example.visionbook.models.api.BooksApi
 import com.example.visionbook.models.dataclasses.BooksModel
 import com.example.visionbook.view.mainScreens.itemsInLists.BooksScreenItems
@@ -50,7 +52,7 @@ fun BooksScreen(
     // val activeState = remember { mutableStateOf(false) }
 
     val bookListState = remember { mutableStateOf<List<BooksModel>?>(null) }
-    val tabItems = listOf("Книги", "История сканирования")
+    val tabItems = listOf(stringResource(R.string.books_screen_tab_b), stringResource(R.string.books_screen_tab_h))
     val amount = 30
     /* val items = remember {
          mutableListOf(

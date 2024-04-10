@@ -49,7 +49,7 @@ fun LoginScreen(
     val authApi = retrofitViewModel.retrofit.create(AuthApi::class.java)
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
-
+    val checkEmailPass = stringResource(R.string.check_email_pass)
     // Забираем значения из вьюмодели
     DisposableEffect(authViewModel) {
 
@@ -111,7 +111,7 @@ fun LoginScreen(
                 } else {
                     Toast.makeText(
                         context,
-                        "Почта или пароль не введены",
+                        checkEmailPass,
                         Toast.LENGTH_SHORT
                     ).show()
                 }

@@ -37,7 +37,7 @@ fun MainNavigation(navController: NavHostController, onThemeUpdated: () -> Unit,
 
         profileNavigation(navController)
 
-        settingsNavigation(navController)
+        settingsNavigation(navController, authViewModel)
 
         composable(NavigationItems.Camera.route){
             Camera(LocalContext.current, navController)
