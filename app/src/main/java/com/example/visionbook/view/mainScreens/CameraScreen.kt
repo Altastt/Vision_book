@@ -60,8 +60,6 @@ fun Camera(context: Context, navController: NavController) {
             CameraBook(
                 fileHelper.getDirectory(),
                 navController = navController,
-                context = context,
-                lifecycleOwner = lifecycleOwner,
                 isCameraPermissionGranted = isCameraPermissionGranted
             )
         }

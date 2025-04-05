@@ -20,7 +20,7 @@ fun MainNavigation(navController: NavHostController, onThemeUpdated: () -> Unit,
             HomeScreen(navController, authViewModel)
         }
         composable(NavigationItems.Books.route) {
-            BooksScreen(authViewModel = authViewModel)
+            BooksScreen()
         }
         composable(NavigationItems.CameraInMain.route) {
             PreMainCameraScreen(navController = navController, authViewModel = authViewModel)

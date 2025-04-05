@@ -30,14 +30,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.visionbook.R
 import com.example.visionbook.models.AutoresizedText
-import com.example.visionbook.models.api.AuthApi
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.BackButton
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldEmail
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldPass
 import com.example.visionbook.view.navigation.AuthScreen
 import com.example.visionbook.view.navigation.GraphRoute
 import com.example.visionbook.viewmodels.AuthVM
-import com.example.visionbook.viewmodels.RetrofitVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,10 +46,8 @@ import java.lang.Thread.sleep
 fun RegistrationScreen(
     navController: NavController,
     authViewModel: AuthVM,
-    retrofitViewModel: RetrofitVM = viewModel()
 ) {
     val context = LocalContext.current
-    val authApi = retrofitViewModel.retrofit.create(AuthApi::class.java)
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
     val secondPasswordState = remember { mutableStateOf("") }
@@ -151,11 +147,11 @@ fun RegistrationScreen(
             onClick = {
                 if (passwordsMatchState && passwordState.value != "" && emailState.value != "" && checked) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        authViewModel.registration(emailState.value, passwordState.value, authApi)
+                        authViewModel.registration(emailState.value, passwordState.value)
                         sleep(1000)
                     }
                     CoroutineScope(Dispatchers.IO).launch {
-                        authViewModel.authorization(emailState.value, passwordState.value, authApi)
+                        authViewModel.authorization(emailState.value, passwordState.value)
                     }
                     navController.navigate(GraphRoute.MAIN) {
                         navController.popBackStack(AuthScreen.Login.route, true)

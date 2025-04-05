@@ -27,13 +27,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.visionbook.R
 import com.example.visionbook.models.AutoresizedText
-import com.example.visionbook.models.api.AuthApi
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldEmail
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldPass
 import com.example.visionbook.view.navigation.AuthScreen
 import com.example.visionbook.view.navigation.GraphRoute
 import com.example.visionbook.viewmodels.AuthVM
-import com.example.visionbook.viewmodels.RetrofitVM
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,10 +41,8 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     navController: NavController,
     authViewModel: AuthVM,
-    retrofitViewModel: RetrofitVM = viewModel()
 ) {
     val context = LocalContext.current
-    val authApi = retrofitViewModel.retrofit.create(AuthApi::class.java)
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
     val checkEmailPass = stringResource(R.string.check_email_pass)
@@ -103,7 +99,7 @@ fun LoginScreen(
             onClick = {
                 if (emailState.value != "" && passwordState.value != "") {
                     CoroutineScope(Dispatchers.IO).launch {
-                        authViewModel.authorization(emailState.value, passwordState.value, authApi)
+                        authViewModel.authorization(emailState.value, passwordState.value)
                     }
                     navController.navigate(GraphRoute.MAIN) {
                         navController.popBackStack()

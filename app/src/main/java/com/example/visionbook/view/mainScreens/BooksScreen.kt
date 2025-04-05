@@ -31,25 +31,18 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.visionbook.R
-import com.example.visionbook.models.api.BooksApi
 import com.example.visionbook.models.dataclasses.BooksModel
 import com.example.visionbook.view.mainScreens.itemsInLists.BooksScreenItems
 import com.example.visionbook.viewmodels.AuthVM
-import com.example.visionbook.viewmodels.BooksScreenVM
-import com.example.visionbook.viewmodels.RetrofitVM
+import com.example.visionbook.viewmodels.BooksScreenVM1
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BooksScreen(
-    booksViewModel: BooksScreenVM = viewModel(),
-    retrofitViewModel: RetrofitVM = viewModel(), authViewModel: AuthVM
+    booksViewModel: BooksScreenVM1 = viewModel(),
 ) {
-    val bookApi = retrofitViewModel.retrofit.create(BooksApi::class.java)
     val tokenState = remember { mutableStateOf("") }
-
-    //  val queryState = remember { mutableStateOf("") }
-    // val activeState = remember { mutableStateOf(false) }
 
     val bookListState = remember { mutableStateOf<List<BooksModel>?>(null) }
     val tabItems = listOf(stringResource(R.string.books_screen_tab_b), stringResource(R.string.books_screen_tab_h))
@@ -70,29 +63,10 @@ fun BooksScreen(
         }
     }
     LaunchedEffect(booksViewModel) {
-        booksViewModel.getListOfBooks(bookApi = bookApi, token = tokenState.value, amount = amount)
+        booksViewModel.booksList
     }
     // Получение текста из ViewModel
-    DisposableEffect(booksViewModel) {
-        val observerBooksList = Observer<List<BooksModel>> { _booksList ->
-            bookListState.value = _booksList
-        }
-        booksViewModel.booksList.observeForever(observerBooksList)
-        val observerToken = Observer<String> { token ->
-            tokenState.value = token
-        }
-        authViewModel.tokenState.observeForever(observerToken)
-        /* val observerQuery = Observer<String> { query ->
-             queryState.value = query
-         }*/
-        //  booksViewModel.query.observeForever(observerQuery)
-        onDispose {
-            booksViewModel.booksList.observeForever(observerBooksList)
-            authViewModel.tokenState.observeForever(observerToken)
-            //     booksViewModel.query.observeForever(observerQuery)
-        }
 
-    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         Spacer(modifier = Modifier.padding(top = 60.dp))

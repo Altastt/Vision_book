@@ -15,6 +15,7 @@
     <string name="language">Language</string>
     <string name="exit_profile">Exit profile</string>
 
+    <string name="logout">Exit</string>
     <string name="permission_canceled">Permission denied</string>
     <string name="permission_canceled_request">Please add permission manually: \n(Settings -> Apps -> Permission Manager)</string>
 

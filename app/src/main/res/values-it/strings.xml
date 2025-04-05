@@ -15,6 +15,7 @@
     <string name="language">Lingua</string>
     <string name="exit_profile">Esci dal profilo</string>
 
+    <string name="logout">Esci</string>
     <string name="permission_canceled">Permesso negato</string>
     <string name="permission_canceled_request">Aggiungi l\'autorizzazione manualmente: \n(Impostazioni -> Applicazioni ->
         Gestione diritti)

@@ -15,6 +15,7 @@
     <string name="language">Язык</string>
     <string name="faq" translatable="false">FAQ</string>
     <string name="exit_profile">Выход из профиля</string>
+    <string name="logout">Выход</string>
 
     <string name="permission_canceled">Разрешение отклонено</string>
     <string name="permission_canceled_request">Пожалуйста, добавьте разрешение вручную: (Настройки -> Приложения ->

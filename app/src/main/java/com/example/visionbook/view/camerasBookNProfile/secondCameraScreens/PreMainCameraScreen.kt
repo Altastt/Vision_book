@@ -26,11 +26,9 @@ import androidx.navigation.NavController
 import com.example.visionbook.R
 import com.example.visionbook.models.AutoresizedText
 import com.example.visionbook.models.NavigationItems
-import com.example.visionbook.models.api.BooksApi
 import com.example.visionbook.view.camerasBookNProfile.itemsInCameras.TextFieldCustom
 import com.example.visionbook.viewmodels.AuthVM
-import com.example.visionbook.viewmodels.BooksScreenVM
-import com.example.visionbook.viewmodels.RetrofitVM
+import com.example.visionbook.viewmodels.BooksScreenVM1
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,12 +36,10 @@ import java.lang.Thread.sleep
 
 @Composable
 fun PreMainCameraScreen(
-    booksViewModel: BooksScreenVM = viewModel(),
-    retrofitViewModel: RetrofitVM = viewModel(),
+    booksViewModel: BooksScreenVM1 = viewModel(),
     navController: NavController,
     authViewModel: AuthVM
 ) {
-    val bookApi = retrofitViewModel.retrofit.create(BooksApi::class.java)
     val tokenState = remember { mutableStateOf("") }
     val titleState = remember { mutableStateOf("") }
     val authorState = remember { mutableStateOf("") }
@@ -51,31 +47,7 @@ fun PreMainCameraScreen(
 
     var idBook = 0
 
-    DisposableEffect(booksViewModel) {
-        val observerTitle = Observer<String> { _titleState ->
-            titleState.value = _titleState
-        }
-        booksViewModel.titleState.observeForever(observerTitle)
-        val observerAuthor = Observer<String> { _authorState ->
-            authorState.value = _authorState
-        }
-        booksViewModel.authorState.observeForever(observerAuthor)
-        val observerGenre = Observer<String> { _genreState ->
-            genreState.value = _genreState
-        }
-        booksViewModel.genreState.observeForever(observerGenre)
-        val observerToken = Observer<String> { token ->
-            tokenState.value = token
-        }
-        authViewModel.tokenState.observeForever(observerToken)
 
-        onDispose {
-            booksViewModel.titleState.removeObserver(observerTitle)
-            booksViewModel.authorState.removeObserver(observerAuthor)
-            booksViewModel.genreState.removeObserver(observerGenre)
-            authViewModel.tokenState.observeForever(observerToken)
-        }
-    }
 
     Column(
         modifier = Modifier
@@ -103,9 +75,7 @@ fun PreMainCameraScreen(
             // СКОРЕЕ ВСЕГО ДЕЛАТЬ ЭКРАН КНИГИИИИИИ
             Button(
                 onClick = {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        booksViewModel.addBookToHistory(tokenState.value, bookApi, 4) // IDBOOK ОТКУДАТО БРАТЬ И СОХРАНЯТЬ
-                    }
+
                     navController.navigate(NavigationItems.Books.route)
                 }
             ) {
@@ -160,25 +130,7 @@ fun PreMainCameraScreen(
                 Button(
                     modifier = Modifier.padding(top = 20.dp),
                     onClick = {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            booksViewModel.addBookToSharedList(
-                                tokenState.value,
-                                author = authorState.value,
-                                genre = genreState.value,
-                                title = titleState.value,
-                                bookApi = bookApi,
-                                onComplete = { _idBook ->
-                                    idBook = _idBook.idBook
-                                },
-                                onError = { e ->
-                                    e.printStackTrace()
-                                }
-                            )
-                            sleep(1000)
-                        }
-                        CoroutineScope(Dispatchers.IO).launch {
-                            booksViewModel.addBookToHistory(tokenState.value, bookApi, idBook)
-                        }
+
                         navController.navigate(NavigationItems.Camera.route)
                         showAdditionalFields = false
                     }

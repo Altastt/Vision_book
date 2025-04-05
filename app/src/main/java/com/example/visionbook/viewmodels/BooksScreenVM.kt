@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.visionbook.data.BooksItem
 import com.example.visionbook.data.DataBooksScreen
-import com.example.visionbook.models.api.BooksApi
 import com.example.visionbook.models.dataclasses.BookModelToShare
 import com.example.visionbook.models.dataclasses.BookToHistory
 import com.example.visionbook.models.dataclasses.BookToShareModel
@@ -39,21 +38,10 @@ class BooksScreenVM: ViewModel() {
 
     suspend fun getListOfBooks(
         token: String,
-        bookApi: BooksApi,
         amount: Int,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-               val listOfBooks = withContext(Dispatchers.Main) {
-                    bookApi.getBooks(
-                        token,
-                        amount
-                    ).book
-                }
-                _booksList.postValue(listOfBooks)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+
         }
     }
 
@@ -71,7 +59,6 @@ class BooksScreenVM: ViewModel() {
     }*/
     suspend fun addBookToSharedList(
         token: String,
-        bookApi: BooksApi,
         author: String,
         genre: String,
         title: String,
@@ -79,45 +66,12 @@ class BooksScreenVM: ViewModel() {
         onError: (Exception) -> Unit // Лямбда-выражение для обработки ошибок
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val idBook = withContext(Dispatchers.Main) {
-                    bookApi.addBookToSharedList(
-                        token,
-                        BookToShareModel(
-                            BookModelToShare(
-                                author = author,
-                                title = title,
-                                genre = genre
-                            ),
-                            image = "null"
-                        )
-                    )
-                }
-                onComplete(idBook)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                onError(e)
-            }
+
         }
     }
 
 
-    suspend fun addBookToHistory(token: String, bookApi: BooksApi, idBook: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                withContext(Dispatchers.Main) {
-                    bookApi.addBookToHistory(
-                        token,
-                        BookToHistory(
-                            idBook
-                        )
-                    )
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
+
 }
 
 class BooksScreenVM1: ViewModel() {
